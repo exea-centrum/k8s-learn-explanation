@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: koty
+  name: koty
+  namespace: devops-davtro
+spec:
+  selector:
+    matchLabels:
+      app: koty
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: koty
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP

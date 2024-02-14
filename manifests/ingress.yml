@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: koty-ingress
+  namespace: devops-davtro
+spec:
+  rules:
+  - host: koty.strona.pl
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: koty-service
+            port:
+              number: 80

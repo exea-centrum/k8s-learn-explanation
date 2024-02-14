@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: koty
+  name: koty
+  namespace: devops-davtro
+spec:
+  selector:
+    matchLabels:
+      app: koty
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: koty
+    spec:
+      initContainers:
+      - name: clonepage
+        image: bitnami/git
+        command:
+          - sh
+          - -c
+          - "git clone https://github.com/exea-centrum/koty.git /tmp/koty"
+        volumeMounts:
+          - mountPath: /tmp/koty
+            name: webpage
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html
+            name: webpage
+      volumes:
+      - name: webpage
+        emptyDir: {}
