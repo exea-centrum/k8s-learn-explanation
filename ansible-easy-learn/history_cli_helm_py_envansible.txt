@@ -1,0 +1,198 @@
+   2  minikube start --driver=docker
+    3  kubectl get
+    4  minikube dashboard
+    5  minikube start --driver=docker
+    6  minikube dashboard
+    7  minikube stop
+    8  minikube delate
+    9  minikube delete
+   10  minikube start --driver=docker
+   11  kubectl cluster-info
+   12  minikube dashboard
+   13  helm install my-release oci://registry-1.docker.io/bitnamicharts/jenkins
+   14  kubectl get secret --namespace default my-release-jenkins -o jsonpath="{.data.jenkins-password}" | base64 -d
+   15  netstat -tulep
+   16  helm init
+   17  printf $(kubectl get secret --namespace sybrenbolandit jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+   18  helm install --name jenkins -f helm/jenkins-values.yaml stable/jenkins --namespace sybrenbolandit --version 0.22.0
+   19  helm search repo jenkinsci
+   20  helm repo add jenkinsci https://charts.jenkins.io
+   21  helm repo update
+   22  helm search repo jenkinsci
+   23  minikube ssh
+   24  sudo chown -R 1000:1000 /data/jenkins-volume
+   25  kubectl delete deploy jenkins
+   26  helm install my-release stable/jenkins
+   27  helm repo add stable https://charts.helm.sh/stable
+   28  helm install my-release stable/jenkins
+   29  helm repo update
+   30  helm install my-release stable/jenkins
+   31  helm upgrade --install
+   32  helm install stable/kibana --name my-release
+   33  helm install stable/kibana --name my-release4
+   34  helm delete my-release
+   35  helm install jenkins -f values.yaml stable/jenkins --namespace jenkins
+   36  $ helm repo add stable https://charts.helm.sh/stable
+   37  "stable" has been added to your repositories
+   38  elm repo add stable https://charts.helm.sh/stable
+   39  helm repo add stable https://charts.helm.sh/stable
+   40  helm install jenkins -f values.yaml stable/jenkins --namespace jenkins
+   41  cat >values.yaml
+   42  cat values.yaml
+   43  helm install jenkins -f values.yaml stable/jenkins --namespace jenkins
+   44  nano values.yaml
+   45  cat values.yaml |gerp storageClass:
+   46  cat values.yaml |grep storageClass:
+   47  nano
+   48  nano values.yaml
+   49  cat values.yaml
+   50  kubectl get pods --namespace=jenkins
+   51  printf $(kubectl get secret --namespace jenkins jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+   52  kubectl --namespace jenkins port-forward $POD_NAME 8080:8080
+   53  kubectl --namespace jenkins port-forward $jenkins-548d4869b7-pz8jp 8080:8080
+   54  kubectl --namespace jenkins port-forward jenkins-548d4869b7-pz8jp 8080:8080
+   55  minikube start
+   56  minikube dashboard
+   57  printf $(kubectl get secret --namespace default jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+   58  printf $(kubectl get secret --namespace default jenkinsbitnami -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+   59  kubectl logs jenkinsbitnami
+   60  kubectl pods
+   61  kubectl logs jenkinsbitnami-69755ffdcb-4kblr
+   62  git clone https://github.com/bitnami/containers/tree/main/bitnami/jenkins
+   63  helm init
+   64  helm install --name jenkins stable/jenkins --namespace jenkins
+   65  printf $(kubectl get secret --namespace jenkins jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+   66  printf $(kubectl get secret --namespace jenkinsbitnami jenkinsbitnami -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+   67  printf $(kubectl get secret --namespace jenkins jenkinsbitnami -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+   68  helm install my-release stable/jenkins
+   69  kubectl pods
+   70  kubectl get pods --namespace=jenkins
+   71  kubectl get pods --namespace=my-release
+   72  kubectl get pods --namespace=my-release-jenkins
+   73  kubectl exec -it my-release-jenkins-6689fc4db9-5d5zr -c jenkins /bin/bash
+   74  kubectl exec -it my-release-jenkins-6689fc4db9-5d5zr -c jenkins /bin/bash chown -R 1000:1000 /var/jenkins_home
+   75  kubectl exec -it my-release-jenkins-6689fc4db9-5d5zr -c jenkins /bin/bash
+   76  ubectl --namespace default port-forward my-release-jenkins-6689fc4db9-5d5zr 8080:8088
+   77  kubectl --namespace default port-forward my-release-jenkins-6689fc4db9-5d5zr 8080:8088
+   78  kubectl --namespace default port-forward my-release-jenkins-6689fc4db9-5d5zr 8088:8080
+   79  kubectl --namespace default port-forward my-release-jenkins-6689fc4db9-5d5zr 8080:8080
+   80  history
+   81  minikube start
+   82  minikube dashboard
+   83  helm install wildflybitnami oci://registry-1.docker.io/bitnamicharts/wildfly
+   84  kubectl get svc --namespace default -w wildflybitnami
+   85  export SERVICE_IP=$(kubectl get svc --namespace default wildflybitnami --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+   86    echo "WildFly URL: http://$SERVICE_IP/"
+   87  export 10.98.198.6=$(kubectl get svc --namespace default wildflybitnami --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+   88    echo "WildFly URL: http://10.98.198.6/"
+   89  minikube addons enable ingress
+   90  export 10.98.198.6=$(kubectl get svc --namespace default wildflybitnami --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+   91    echo "WildFly URL: http://10.98.198.6/"
+   92  export SERVICE_IP=$(kubectl get svc --namespace default wildflybitnami --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+   93    echo "WildFly URL: http://$SERVICE_IP/"
+   94  helm install nginx-ingress-controller-bitnami oci://registry-1.docker.io/bitnamicharts/nginx-ingress-controller
+   95  kubectl get --namespace default svc -w nginx-ingress-controller-bitnami
+   96  kubectl get --namespace default svc -w nginx-ingress-controller-bitnami
+   97  helm install kafkabitnami oci://registry-1.docker.io/bitnamicharts/kafka
+   98  kubectl run kafkabitnami-client --restart='Never' --image docker.io/bitnami/kafka:3.4.0-debian-11-r33 --namespace default --command -- sleep infinity
+   99  kubectl exec --tty -i kafkabitnami-client --namespace default -- bash
+  100  kubectl get pods -n ingress-nginx
+  101  kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
+  102  kubectl expose deployment web --type=NodePort --port=8080
+  103  service/web exposed
+  104  kubectl get service web
+  105  minikube service web --url
+  106  helm install rabbitmqbitnami oci://registry-1.docker.io/bitnamicharts/rabbitmq
+  107  echo "Username      : user"
+  108      echo "Password      : $(kubectl get secret --namespace default rabbitmqbitnami -o jsonpath="{.data.rabbitmq-password}" | base64 -d)"
+  109      echo "ErLang Cookie : $(kubectl get secret --namespace default rabbitmqbitnami -o jsonpath="{.data.rabbitmq-erlang-cookie}" | base64 -d)"
+  110  kubectl port-forward --namespace default svc/rabbitmqbitnami 15672:15672
+  111  helm install --name jenkins stable/jenkins --namespace jenkins
+  112  helm init
+  113  printf $(kubectl get secret --namespace jenkins jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+  114  printf $(kubectl get secret --namespace default my-release-jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+  115  helm install my-release oci://registry-1.docker.io/bitnamicharts/kafka
+  116  helm upgrade
+  117  helm install my-release oci://registry-1.docker.io/bitnamicharts/flink
+  118  helm install flinkbitnami oci://registry-1.docker.io/bitnamicharts/flink
+  119  kubectl port-forward svc/flinkbitnami-jobmanager 8081:8081
+  120  kubectl port-forward svc/flinkbitnami-jobmanager 8081:8081 &
+  121  minikube
+  122  minikube dashboard
+  123  minikube dashboard
+  124  dig naslekarz.pl
+  125  dig naslekarz.pl -a
+  126  dig -a naslekarz.pl
+  127  dig -all naslekarz.pl
+  128  journalctl -xe
+  129  vgs
+  130  history
+  131  sudo blkid
+  132  ll /media/
+  133  ll /media/nevil
+  134  mc
+  135  sudo mc
+  136  ansible --version
+  137  pip3 install virtualenv
+  138  sudo apt install python3 python3-venv
+  139  sudo apt install virtualenv python3-virtualenv
+  140  python3 -m venv /path/to/virtual/environment
+  141  source your-broject/bin/activate
+  142  python3 -m venv /path/to/virtual/environment
+  143  sudo apt install python3 python3-venv
+  144  sudo apt install virtualenv python3-virtualenv
+  145  virtualenv envansible
+  146  ls
+  147  source en
+  148  source envansible/bin/activate
+  149  which
+  150  which python
+  151  pip install ansible
+  152  ansible --version
+  153  deactivate
+  154  source envansible/bin/activate
+  155  top
+  156  ls
+  157  virtualenv envansibletower
+  158  pip install awx
+  159  pip install awxkit
+  160  awx --help
+  161  awx --conf.host https://awx.example.org     --conf.username joe --conf.password secret     --conf.insecure     users list
+  162  pip install ansible-tower-cli
+  163  tower-cli --version
+  164  tower-cli --help
+  165  tower-cli config host  http://192.168.3.151:80
+  166  tower-cli config username admin
+  167  tower-cli config password password
+  168  tower-cli config verify_ssl False
+  169  tower-cli config
+  170  tower-cli job list
+  171  tower-cli config
+  172  pip3 install sphinx sphinxcontrib-autoprogram
+  173  ~ cd awxkit/awxkit/cli/docs
+  174  ~ TOWER_HOST=https://awx.example.org TOWER_USERNAME=example TOWER_PASSWORD=secret make clean html
+  175  ~ cd build/html/ && python -m http.server
+  176  Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ..
+  177  deactivate
+  178  source envansibletower/bin/activate
+  179  ansible-galaxy search nginx
+  180  deactivate
+  181  source envansible/bin/activate
+  182  ansible-galaxy search nginx
+  183  deactivate
+  184  source envansibletower/bin/activateexit
+  185  ls
+  186  lsexit
+  187  source envansibletower/bin/activateexit
+  188  pip install ansible
+  189  ansible-galaxy collection install awx.awx
+  190  source envansibletower/bin/activateexit
+  191  source envansibletower/bin/activate
+  192  ansible-galaxy collection install awx.awx
+  193  pip install ansible
+  194  ansible-galaxy collection install awx.awx
+  195  deactivate
+  196  ansible --version
+  197  ls
+  198  mkdir ansible_playbook
+  199  cd ansible_playbook/
