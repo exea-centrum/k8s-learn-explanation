@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  become: false
+  gather_facts: false
+
+  tasks:
+
+  - name: Read log file
+    slurp:
+      src: test.log
+    register: log
+
+  - name: Show log file
+    debug:
+      msg: "{{ log['content'] | b64decode }}"
+
+  - name: Show first result
+    debug:
+      msg: "{{ log['content'] | b64decode | regex_findall('nodeagent stopped') | first }}"

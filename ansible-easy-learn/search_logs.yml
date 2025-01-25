@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+  become: false
+  gather_facts: false
+
+  vars:
+
+    SEARCH_STRING: "nodeagent stopped"
+    SEARCH_FILE: "test.log"
+
+  tasks:
+
+  - name: Search for string
+    lineinfile:
+      path: "{{ SEARCH_FILE }}"
+      regexp: '^{{ SEARCH_STRING }}: (.*)'
+      line: "SEARCH_STRING FOUND"
+      state: present
+    register: result
+    # Since it is a reporting task
+    changed_when: false
+    failed_when: "'line replaced' in result.msg" # as it means SEARCH_STRING FOUND
+    check_mode: true # to prevent changes and do a dry-run only
+
+  - name: Show result, if not found
+    debug:
+      var: result
+    when: "'line added' in result.msg" # as it means SEARCH_STRING NOT FOUND

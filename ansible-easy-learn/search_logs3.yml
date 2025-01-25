@@ -1,0 +1,6 @@
+grep 'not found' test.log; echo $?
+1
+grep 'nodeagent stopped' test.log; echo $?
+nodeagent stopped: 0
+nodeagent stopped: 1
+0

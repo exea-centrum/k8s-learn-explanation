@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  become: false
+  gather_facts: false
+
+  vars:
+
+    SEARCH_STRING: "nodeagent stopped"
+    SEARCH_FILE: "test.log"
+
+  tasks:
+
+  - name: Search for string in file
+    command:
+      cmd: "grep '{{ SEARCH_STRING }}' {{ SEARCH_FILE }}"
+    register: result
+    # Since it is a reporting task
+    # which needs to deliver a result in any case
+    failed_when: result.rc != 0 and result.rc != 1
+    check_mode: false
+    changed_when: false
