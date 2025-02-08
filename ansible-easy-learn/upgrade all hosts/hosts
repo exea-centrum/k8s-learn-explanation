@@ -1,0 +1,9 @@
+[all:vars]
+ansible_user='your_default_username'
+ansible_become=yes
+ansible_become_method=sudo
+ansible_python_interpreter='/usr/bin/env python3'
+
+[server]
+1.2.3.4
+2.3.4.5 ansible_port=2222 ansible_user='overwrite_default' ansible_sudo_pass='password'
