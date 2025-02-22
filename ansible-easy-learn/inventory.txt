@@ -1,0 +1,181 @@
+1
+
+Below is the steps for how to Set default Ansible username/password for SSH connection
+
+ansible.cfs configuration will be
+
+$ cat ansible.cfg
+[defaults]
+inventory = ./inventory
+
+[privilege_escalation]
+become = True
+become_method = sudo
+become_user = root
+
+Inventory file will be
+
+$ cat inventory
+[App1]
+10.163.128.21
+
+[App1:vars]
+ansible_password=*************
+ansible_ssh_user=Appuser1
+host_key_checking=False
+ansible execution success result
+
+$ ansible App1 -m ping
+10.163.128.21 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+---
+- name: update webservers
+  hosts: webservers
+  remote_user: admin
+
+  tasks:
+  - name: thing to do first in this playbook
+  . . .
+as a host variable in inventory:
+
+other1.example.com     ansible_connection=ssh        ansible_user=myuser
+other2.example.com     ansible_connection=ssh        ansible_user=myotheruser
+or as a group variable in inventory:
+
+cloud:
+  hosts:
+    cloud1: my_backup.cloud.com
+    cloud2: my_backup2.cloud.com
+  vars:
+    ansible_user: admin
+*****************************
+
+[all:vars]
+ansible_connection=ssh
+ansible_user=vagrant
+ansible_ssh_pass=vagrant
+
+################################
+
+---
+# file: group_vars/all
+ansible_connection: ssh 
+ansible_ssh_user: vagrant 
+ansible_ssh_pass: vagrant
+################################################
+
+
+[host]
+{{host-ip}}
+[host:vars]
+ansible_ssh_port=22
+ansible_ssh_user=administrator
+
+[other-host]
+{{host-ip}}
+[other-host:vars]
+ansible_ssh_port=8888
+ansible_ssh_user=root
+ansible-inventory --host=host on the above hosts file outputs
+
+{
+    "ansible_ssh_port": 8888, 
+    "ansible_ssh_user": "root"
+}
+#############################################
+#
+That's correct.
+
+This is fine
+
+[host]
+192.168.0.2
+[host:vars]
+ansible_ssh_port=22
+ansible_ssh_user=administrator
+
+[other-host]
+192.168.0.3
+[other-host:vars]
+ansible_ssh_port=8888
+ansible_ssh_user=root
+ansible-inventory --host=host
+
+{
+    "ansible_ssh_port": 22, 
+    "ansible_ssh_user": "administrator"
+}
+On this the variables are overwritten for host with the values from other-host
+
+[host]
+192.168.0.2
+[host:vars]
+ansible_ssh_port=22
+ansible_ssh_user=administrator
+
+[other-host]
+192.168.0.2
+[other-host:vars]
+ansible_ssh_port=8888
+ansible_ssh_user=root
+ansible-inventory --host=host
+
+{
+    "ansible_ssh_port": 8888, 
+    "ansible_ssh_user": "root"
+}
+################################################################
+
+ssh ‘/bin/sh -c “sudo /tmp/ansible-temp-script”’
+
+#############################################################
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html
+
+- name: Ensure the httpd service is running
+  service:
+    name: httpd
+    state: started
+  become: true
+To run a command as the apache user:
+
+- name: Run a command as the apache user
+  command: somecommand
+  become: true
+  become_user: apache
+To do something as the nobody user when the shell is nologin:
+
+- name: Run a command as nobody
+  command: somecommand
+  become: true
+  become_method: su
+  become_user: nobody
+  become_flags: '-s /bin/sh'
+##############################################
+The best way is to use ssh keys, but if you can't do that use vault.
+
+There are many ways to do that, my favorite is to create a file with vault password in it (ie. ~/.vault_pass). Then create a vault file with ssh passwords in it:
+
+ansible-vault create /group_vars/group/passwords.yml --vault-password-file ~/.vault_pass 
+You can then put all your passwords in it
+
+---
+pass1=<password1> pass2=<password2>
+
+And in the inventory file use these variables
+
+[group]
+host1 ansible_user=user1 ansible_password="{{ pass1 }}"
+host2 ansible_user=user2 ansible_password="{{ pass2 }}"
+and when you run a playbook use the --vault-password-file
+
+ansible-playbook -i <your inventory file> <playbook> --vault-password-file ~/.vault_pass 
+Hope this helps !
+#################################################
+
+https://www.hashicorp.com/en/blog/managing-ssh-access-at-scale-with-hashicorp-vault
+
