@@ -1,0 +1,1644 @@
+﻿V11.0 
+
+cover 
+Front cover 
+Course Exercises Guide 
+IBM MQ V9 System Administration (using  Linux for labs) 
+Course code WM154   ERC 1.0 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+Individually Licensed to Dawid Trojanowski
+April 2017 edition 
+Notices 
+This information was developed for products and services offered in the US. 
+IBM may not offer the products, services, or features discussed in this document in other countries. Consult your local IBM representative  for information on the products and services currently available in your area. Any reference to an IBM product, program, or service is not  intended to state or imply that only that IBM product, program, or service may be used. Any functionally equivalent product, program, or  service that does not infringe any IBM intellectual property right may be used instead. However, it is the user's responsibility to evaluate  and verify the operation of any non-IBM product, program, or service. 
+IBM may have patents or pending patent applications covering subject matter described in this document. The furnishing of this  document does not grant you any license to these patents. You can send license inquiries, in writing, to: 
+IBM Director of Licensing 
+IBM Corporation 
+North Castle Drive, MD-NC119 
+Armonk, NY 10504-1785 
+United States of America 
+INTERNATIONAL BUSINESS MACHINES CORPORATION PROVIDES THIS PUBLICATION "AS IS" WITHOUT WARRANTY OF ANY  KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF  NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Some jurisdictions do not allow disclaimer  of express or implied warranties in certain transactions, therefore, this statement may not apply to you. 
+This information could include technical inaccuracies or typographical errors. Changes are periodically made to the information herein;  these changes will be incorporated in new editions of the publication. IBM may make improvements and/or changes in the product(s)  and/or the program(s) described in this publication at any time without notice.  
+Any references in this information to non-IBM websites are provided for convenience only and do not in any manner serve as an  endorsement of those websites. The materials at those websites are not part of the materials for this IBM product and use of those  websites is at your own risk. 
+IBM may use or distribute any of the information you provide in any way it believes appropriate without incurring any obligation to you. 
+Information concerning non-IBM products was obtained from the suppliers of those products, their published announcements or other  publicly available sources. IBM has not tested those products and cannot confirm the accuracy of performance, compatibility or any other  claims related to non-IBM products. Questions on the capabilities of non-IBM products should be addressed to the suppliers of those  products. 
+This information contains examples of data and reports used in daily business operations. To illustrate them as completely as possible,  the examples include the names of individuals, companies, brands, and products. All of these names are fictitious and any similarity to  actual people or business enterprises is entirely coincidental. 
+Trademarks 
+IBM, the IBM logo, and ibm.com are trademarks or registered trademarks of International Business Machines Corp., registered in many  jurisdictions worldwide. Other product and service names might be trademarks of IBM or other companies. A current list of IBM  trademarks is available on the web at “Copyright and trademark information” at www.ibm.com/legal/copytrade.shtml. 
+© Copyright International Business Machines Corporation 2017.  
+This document may not be reproduced in whole or in part without the prior written permission of IBM. US Government Users Restricted Rights - Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+TOC 
+Contents 
+ Contents 
+Trademarks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . v Exercises description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . vi 
+Exercise 1. Using commands to create a queue manager and queues . . . . . . . . . . . . . . . . . . . . 1-1 Part 1: Create and start a queue manager . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1-2 Part 2: Use the IBM MQ MQSC commands interactively . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1-3 Part 3: Use the IBM MQ MQSC commands in a command file . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1-4 Part 4: Work with alias queues and queue attributes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1-5 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues . . . . . . . . . . . . . . . 2-1 Part 1: Create a queue manager . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-2 Part 2: Create and modify local queues . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-3 Part 3: Create queue manager sets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2-6 
+Exercise 3. Using IBM MQ sample programs to test the configuration . . . . . . . . . . . . . . . . . . . . 3-1 Part 1: Make QM01 is the default queue manager . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3-3 Part 2: Put, get, and browse messages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3-3 Part 3: Work with alias queues . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3-5 
+Exercise 4. Connecting queue managers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .4-1 Part 1: Create a remote queue manager . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-3 Part 2: Define the channels and listener on the local queue manager . . . . . . . . . . . . . . . . . . . . . . . 4-5 Part 3: Define the channels on the remote queue manager . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-7 Part 4: Test and start the connection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-8 Part 5: Test queues in a distributed environment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4-8 
+Exercise 5. Connecting an IBM MQ client . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .5-1 
+Exercise 6. Implementing a trigger monitor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6-1 Part 1: Configure the queue manager for triggering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6-4 Part 2: Test triggering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6-5 Part 3: Test triggering with amqsinq . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6-6 
+Exercise 7. Running an IBM MQ trace . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7-1 Part 1: Start an MQ trace on the sample programs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7-3 Part 2: Use the sample programs to put and get messages from a queue . . . . . . . . . . . . . . . . . . . 7-4 Part 3: Locate and examine the trace files . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7-5 
+Exercise 8. Controlling access to IBM MQ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .8-1 Part 1: Authorizing a user . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8-3 Part 2: Using generic profiles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8-7 
+Exercise 9. Using a media image to restore a queue . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9-1 Part 1: Queue manager restart . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9-2 Part 2: Media recovery . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9-3 
+Exercise 10. Backing up and restoring IBM MQ object definitions . . . . . . . . . . . . . . . . . . . . . .10-1 Part 1: Backing up queue manager configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10-2 
+© Copyright IBM Corp. 2017 iii Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 TOC 
+ Contents 
+Part 2: Restoring the object definitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10-2 Part 3: Dumping security definitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10-3 
+Exercise 11. Implementing a basic cluster . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11-1 Part 1: Defining the cluster queue managers, channels, and queues . . . . . . . . . . . . . . . . . . . . . . 11-4 Part 2: Testing the cluster . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11-8 
+Exercise 12. Monitoring IBM MQ for performance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12-1 Part 1: Configure a queue manager to collect statistics data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12-4 Part 2: Generate and view statistics data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12-5 Part 3: Configure a queue manager to collect accounting data . . . . . . . . . . . . . . . . . . . . . . . . . . . 12-8 Part 4: Generate and view accounting data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12-9 Part 5: Configure a queue manager for online monitoring . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12-14 Part 6: Resource monitoring . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12-16 
+© Copyright IBM Corp. 2017 iv Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+TMK 
+Trademarks 
+ Trademarks 
+The reader should recognize that the following terms, which appear in the content of this training  document, are official trademarks of IBM or other companies:  
+IBM, the IBM logo, and ibm.com are trademarks or registered trademarks of International Business  Machines Corp., registered in many jurisdictions worldwide. 
+The following are trademarks of International Business Machines Corporation, registered in many  jurisdictions worldwide: 
+AIX® Bluemix® developerWorks® 
+FFST™ First Failure Support  Technology™ 
+GPFS™ 
+Notes® PowerVM® PureApplication® WebSphere® z/OS® 
+Linux is a registered trademark of Linus Torvalds in the United States, other countries, or both. 
+Microsoft and Windows are trademarks of Microsoft Corporation in the United States, other  countries, or both. 
+Java™ and all Java-based trademarks and logos are trademarks or registered trademarks of  Oracle and/or its affiliates. 
+UNIX is a registered trademark of The Open Group in the United States and other countries. 
+VMware and the VMware "boxes" logo and design, Virtual SMP and VMotion are registered  trademarks or trademarks (the "Marks") of VMware, Inc. in the United States and/or other  jurisdictions. 
+SoftLayer® is a trademark or registered trademark of SoftLayer, Inc., an IBM Company. Other product and service names might be trademarks of IBM or other companies. 
+© Copyright IBM Corp. 2017 v Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+pref 
+Exercises description 
+This course includes the following exercises: 
+ • Using commands to create queue manager and queues 
+ • Using IBM MQ Explorer to create queue managers and queues  • Using IBM MQ sample programs to test the configuration 
+ • Connecting queue managers 
+ • Connecting an IBM MQ client 
+ • Implementing a trigger monitor 
+ • Running an IBM MQ trace 
+ • Controlling access to IBM MQ 
+ • Using a media image to restore a queue 
+ • Back up and restore IBM MQ object definitions 
+ • Implementing a basic cluster 
+ • Monitoring IBM MQ for performance 
+ Exercises description 
+In the exercise instructions, you can check off the line before each step as you complete it to track  your progress. 
+Most exercises include required sections, which should always be completed. It might be  necessary to complete these sections before you can start later exercises. If you have sufficient  time and want an extra challenge, some exercises might also include optional sections that you can  complete. 
+The lab image for this course is based on Ubuntu 14.4. For more information about Ubuntu, see the  Ubuntu desktop guide: https://help.ubuntu.com/lts/ubuntu-help/index.html 
+The primary user ID and password for the lab image for this course are: localuser, passw0rd 
+© Copyright IBM Corp. 2017 vi Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 1. Using commands to create a queue manager and queues 
+Exercise 1. Using commands to create a  queue manager and queues 
+Estimated time 
+00:30 
+Overview 
+In this exercise, you use IBM MQ commands to create a queue manager, start it, and then create  queues. You also create and run an IBM MQ script command file. 
+Objectives 
+After completing this exercise, you should be able to: 
+ • Use IBM MQ commands to create a local queue manager, local queues, and alias queues  • Use IBM MQ commands to display and alter queue manager and queue attributes  • Create and run an IBM MQ command file 
+Introduction 
+In this exercise, you create and start a queue manager. You then create local queues and alter  queue and queue manager attributes. 
+You also create a script file of IBM MQ commands and run the command file from a command. Finally, you create alias queues and alter the queue attributes. 
+Requirements 
+ • IBM MQ is installed on the system 
+ • A text editor 
+Important 
+The exercises in this course use a set of lab files that might include scripts, applications, files,  solution files, PI files, and others. The course lab files can be found in the C:/labfiles directory.  The exercises point you to the lab files as you need them. 
+© Copyright IBM Corp. 2017 1-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions  
+Exercise 1. Using commands to create a queue manager and queues 
+Part 1: Create and start a queue manager 
+__ 1. Log on to the VMware image or system. 
+W Windows 
+Log in as Administrator with a password of passw0rd 
+L Linux 
+Log in as localuser with a password of passw0rd 
+__ 2. Open a command (terminal) window. 
+__ 3. Create a queue manager that is named: QM01 
+Use this queue manager for all steps in this exercise.  
+Note: The queue manager and dead-letter queue names are case-sensitive.  
+W Windows 
+Type: crtmqm -u SYSTEM.DEAD.LETTER.QUEUE QM01 
+L Linux 
+Create the queue manager with user-based authorizations that are enabled by adding the -oa user option to the create queue manager command. Type: 
+crtmqm -oa user -u SYSTEM.DEAD.LETTER.QUEUE QM01 
+This queue manager (QM01) is used in a security exercise later in this course (Exercise 8) that  assumes that user-based authorizations are enabled on the Linux queue manager. This option and  topic are described in more detail in Unit 10. 
+You should see a message that the queue manager and a queue manager directory were  created successfully. 
+__ 4. Start the queue manager.  
+Type: strmqm QM01 
+You should see a message that the queue manager QM01 started by using V9.0.0.0. 
+© Copyright IBM Corp. 2017 1-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 1. Using commands to create a queue manager and queues 
+Part 2: Use the IBM MQ MQSC commands interactively 
+In this part of the exercise, you enter all the IBM MQ commands interactively and display the results  in the command window. 
+__ 1. Use the control command runmqsc to start MQSC mode and complete the following tasks.  Type: runmqsc QM01 
+You see message that the MQSC for the queue manager QM01 is starting. You are in  MQSC mode until you enter END. No command prompt is displayed in MQSC mode. 
+__ a. Display all the attributes of the queue manager.  
+Type: DISPLAY QMGR 
+Note: QMGR is a literal string and is not replaced with your queue manager name. __ b. Verify that the DEADQ attribute is set to: SYSTEM.DEAD.LETTER.QUEUE 
+__ c. Display all the queues with queue names that begin with the characters SYSTEM.  Type: DISPLAY Q(SYSTEM*) 
+__ d. Create a local queue that is named QL.A with a text description of “QL.A TEXT”.  Type: DEFINE QL(QL.A) REPLACE DESCR('QL.A TEXT') 
+__ e. Display all the attributes of the local queue that is name QL.A and verify that the text that  is entered in the previous step is the value for the DESC attribute. 
+Type: DISPLAY QL(QL.A) 
+__ f. Change the maximum number of messages that are allowed on the local queue QL.A  (MAXDEPTH) from 5000 messages to 1000 messages.  
+Type: ALTER QL(QL.A) MAXDEPTH(1000) 
+__ g. Display the queue attributes for QL.A and verify the change to the MAXDEPTH attribute.  Type: DISPLAY QL(QL.A)  
+Note 
+You can use the Up arrow key in the command window to display and rerun a previous command. 
+Verify that the ALTER command changed only the attribute that you specified on the  command. You should see that the MAXDEPTH attribute was modified and that the  DESC attribute is unchanged.  
+__ h. Define another local queue that is named QL.B with a text description.  Type: DEFINE QL(QL.B) REPLACE DESCR('QL.B Text') 
+__ i. Display all the attributes of the queue and verify that the text appears in the DESC  attribute.  
+Type: DISPLAY QL(QL.B) 
+© Copyright IBM Corp. 2017 1-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 1. Using commands to create a queue manager and queues 
+__ j. Change the maximum number of messages that are allowed on the queue to 2000 by  using the DEFINE command with REPLACE instead of the ALTER command.  
+Type: DEFINE QL(QL.B) REPLACE MAXDEPTH(2000) 
+__ k. Display the queue attributes of QL.B.  
+Type: DISPLAY QL(QL.B) 
+The DEFINE command with REPLACE changes the attributes that you specify on the  command and sets the other attributes to their initial values. You should see that the  MAXDEPTH attribute was modified and that the DESC attribute is now blank.  
+__ 2. Exit the runmqsc mode.  
+Type: END 
+Part 3: Use the IBM MQ MQSC commands in a command file 
+__ 1. Using a text editor such as Notepad on Windows or gedit on Linux, prepare an IBM MQ  command file with the same commands that you entered interactively in Part 2 of this  exercise. Name the file CreateQs.mqsc and save it in your lab files directory. 
+W Windows 
+The lab files directory is: C:\labfiles 
+L Linux 
+The lab files directory is: /home/localuser/labfiles 
+In the text file, enter the following commands and then save the file. 
+DIS QMGR 
+DIS Q(SYSTEM*) 
+DEF QL(QL.A) REPLACE DESCR('QL.A Text') 
+DIS QL(QL.A) 
+ALTER QL(QL.A) MAXDEPTH(1000) 
+DIS QL(QL.A) 
+DEF QL(QL.B) REPLACE DESCR('QL.B Text') 
+DEF QL(QL.B) REPLACE MAXDEPTH(2000) 
+DIS QL(QL.B) 
+__ 2. Process the command file and direct the results to a file that is named report.txt.  
+__ a. In the command window, change directories to the lab files directory that contains the  MQSC file that you created in Step 1. 
+__ b. Run the command file and redirect the output to report.txt. 
+Type: runmqsc QM01 < CreateQs.mqsc > report.txt  
+© Copyright IBM Corp. 2017 1-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 1. Using commands to create a queue manager and queues 
+__ 3. Using a text editor, open the file that is named report.txt and verify that each command  was successful.  
+Part 4: Work with alias queues and queue attributes 
+In this part of the exercise, you create alias queues and modify queue attributes. You use these  queues in Exercise 3. 
+__ 1. Start MQSC mode for the queue manager QM01. 
+Type: runmqsc QM01 
+__ 2. Verify the local queues QL.A and QL.B exist. 
+Type: DIS QL(QL*) 
+__ 3. Create an alias queue on QM01 that is named QA.A that resolves to the local queue QL.A.  Type: DEF QA(QA.A) TARGET(QL.A) 
+__ 4. Display the attributes of the alias queue QA.A and verify that queue TYPE is QALIAS and  that TARGET is QL.A. 
+Type: DIS QA(QA.A)  
+__ 5. Modify the alias queue QA.A to inhibit PUT requests.  
+Type: ALTER QA(QA.A) PUT(DISABLED) 
+__ 6. Display the attributes of the alias queue QA.A and verify that queue PUT attribute is now set  to DISABLED. 
+__ 7. Modify the local queue QL.B to inhibit PUT requests.  
+Type: ALTER QL(QL.B) PUT(DISABLED) 
+__ 8. Display the attributes of the local queue QL.B and verify that queue PUT attribute is now set  to DISABLED. 
+__ 9. Create an alias queue that is named QA.B that resolves to the local queue QL.B. Type: DEF QA(QA.B) TARGET(QL.B) 
+__ 10. Display the attributes of the alias queue QA.B and verify that queue TYPE is QALIAS and  that TARGET is QL.B. 
+__ 11. Exit runmqsc mode.  
+Type: END 
+End of exercise 
+© Copyright IBM Corp. 2017 1-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise review and wrap-up 
+You should now be able to: 
+ • Create and start a queue manager 
+Exercise 1. Using commands to create a queue manager and queues 
+ • Use control commands and MQSC command files to create and modify local queues   • Display attributes of IBM MQ objects 
+ • Change queue attributes and create alias queues 
+© Copyright IBM Corp. 2017 1-6 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+Exercise 2. Using IBM MQ Explorer to  create queue managers and  
+queues 
+Estimated time 
+00:30 
+Overview 
+In this exercise, you use IBM MQ Explorer to create a queue manager, start it, and then create  queues. You also use IBM MQ Explorer to create queue manager sets to simplify the management  of many queue managers. 
+Objectives 
+After completing this exercise, you should be able to: 
+ • Use IBM MQ Explorer to create a local queue manager, local queues, and alias queues  • Use IBM MQ Explorer to display and modify queue manager and queue properties  • Use IBM MQ Explorer to create a queue manager set 
+Introduction 
+In this exercise, you use IBM MQ Explorer to create a queue manager. Then, you create local  queues and modify queue properties. Finally, you create queue manager sets to simplify the  management of multiple queue managers. 
+Requirements 
+ • IBM MQ and IBM MQ Explorer are installed on the system 
+ • A text editor 
+© Copyright IBM Corp. 2017 2-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions  
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+Part 1: Create a queue manager 
+__ 1. Start IBM MQ Explorer. 
+W Windows 
+From the Windows Start menu, click MQ Explorer (Installation 1) or click the IBM MQ Explorer  icon in the taskbar. 
+L Linux 
+In a terminal window, type: MQExplorer 
+When you start IBM MQ Explorer by using this command, it runs in the foreground. You must keep  this terminal window open while you are using IBM MQ Explorer. 
+When it is necessary to open a new terminal window for running sample programs, for example,  right-click and then click New Terminal. 
+__ 2. IBM MQ Explorer automatically recognizes and manages any queue managers that are  defined on the same system.  
+If you completed Exercise 1, verify that IBM MQ Explorer found the queue manager QM01. __ a. In the MQ Explorer - Navigator view, expand IBM MQ. 
+__ b. Expand the Queue Managers folder. 
+__ c. Verify that the queue manager QM01 is listed under the Queue Managers folder. 
+__ 3. Create a queue manager that is named QM02 that uses a dead-letter queue that is named  QM02.DLQ and listens on port 1416. Use this queue manager for all the remaining steps in  this exercise. 
+__ a. In the MQ Explorer - Navigator view, right-click Queue Managers and then click New  > Queue Manager. 
+© Copyright IBM Corp. 2017 2-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+__ b. For the Queue Manager name, type: QM02  
+For the Dead-letter queue, type: QM02.DLQ  
+Click Next. 
+__ c. Click Next to accept the default values for logging. 
+__ d. Click Next to accept the default values for the configuration options. __ e. On the listener options page, enter 1416 for the Listen on port number. Click Finish. 
+__ 4. Verify that the queue manager QM02 now appears under the Queue Managers folder in  the MQ Explorer - Navigator view. 
+__ 5. Verify that the queue manager QM02 is running.  
+The status icon next to queue name should contain an up pointing green arrow. You can  also click the queue manager QM02 in the Queue Managers folder to display and verify the  queue manager status. 
+Part 2: Create and modify local queues  
+__ 1. Display the SYSTEM queues for QM02. 
+__ a. Expand Queue Managers > QM02 in the MQ Explorer - Navigator view. __ b. Click Queues under QM02. 
+__ c. In the Queues content view, click the Show System Objects icon. 
+
+__ 2. The Show System Queues icon is a toggle. In the Queues view, click the Show System  Objects icon again to hide the SYSTEM queues. 
+__ 3. Create a local queue that is named QM02.DLQ. You identified this queue as the dead-letter  queue for QM02 when you created the queue manager. 
+__ a. Right-click Queues under QM02 in the MQ Explorer - Navigator view and then click  New > Local Queue. 
+__ b. For the queue Name, type QM02.DLQ and then click Finish. 
+__ c. If a confirmation window is displayed, click OK. 
+__ d. Verify that the queue now appears in the Queues content view. 
+© Copyright IBM Corp. 2017 2-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+__ 4. Change the maximum number of messages that are allowed on the queue QM02.DLQ to  1000. 
+__ a. In the Queues view for QM02, right-click QM02.DLQ and then click Properties. __ b. Click Extended. 
+__ c. Change the Max queue depth property value to 1000. 
+__ d. Click Apply and then click OK. 
+
+__ 5. Create another local queue on QM02 that is named QL.B. 
+__ a. Right-click Queues under QM02 in the MQ Explorer - Navigator view and then click  New > Local Queue. 
+__ b. For the queue Name, type QL.B and then click Finish. 
+__ c. If a confirmation window is displayed, click OK. 
+__ d. Verify that queue QL.B is now listed in the Queues content view for QM02. __ 6. Change the default persistence on the local queue QL.B to Persistent. __ a. In the Queues view for QM02, right-click QL.B and then click Properties. __ b. On the General page, change the Default persistence property to Persistent. __ c. Click Apply and then click OK. 
+© Copyright IBM Corp. 2017 2-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+__ d. In the Queues view, scroll to the right and verify that the Default persistence column  now shows Persistent for QL.B.  
+__ 7. Create an alias queue on QM02 that is named QA.B that resolves to the local queue QL.B. 
+__ a. Right-click Queues under QM02 in the MQ Explorer - Navigator view and then click  New > Alias Queue. 
+__ b. For the queue Name, type QA.B and then click Next. 
+__ c. On the General page, type QL.B for the Base object property and then click Finish. __ d. If a confirmation window is displayed, click OK. 
+__ 8. Inhibit PUT requests on the QA.B alias queue on QM02. 
+__ a. In the Queues view for QM02, right-click QA.B and then click Properties. __ b. On the General page, change the Put messages property to Inhibited. __ c. Click Apply and then click OK. 
+__ d. Verify that the Put messages column in the Queues view now contains Inhibited for  the queue QA.B. 
+© Copyright IBM Corp. 2017 2-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+Part 3: Create queue manager sets 
+In this part of the exercise, you create a queue manager set that is named Production. You then  create a custom filter that uses the value in the queue manager Description field to identify  “Production” queue managers to include in the new set. 
+__ 1. Change the description of the QM02 queue manager to Production. 
+__ a. In the MQ Explorer - Navigator view, right-click QM02 and then click Properties. __ b. On the General properties page, type Production in the Description field. __ c. Click Apply and then click OK. 
+__ d. In the Queue Manager QM02 view, verify that the Description property is now set to  Production. 
+
+__ 2. Create a queue manager set that is named Production and automatically add any queue  managers with the Description property set to Production to the queue manager set.  
+__ a. Right-click Queue Managers in the MQ Explorer-Navigator view, and then click Sets >  New Set. 
+__ b. For the set Name, type Production and then select Automatic for the set type. Click  Next. 
+__ c. Click Manage Filters to define a new filter that references the queue manager  Description property. 
+__ d. Click Add in the Manage Filters window. 
+__ e. In the Add Filter window, type Production for the Filter Name. 
+© Copyright IBM Corp. 2017 2-6 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+EXempty 
+__ f. The first part of the filter currently evaluates all queue managers. This filter should  evaluate all queue managers, so no changes are required to the first filter evaluation. 
+__ g. Add an AND clause to the filter that tests for the text Production in the queue manager  Description property. Select the AND check box, and then click Select. 
+
+__ h. In the Select Attribute window, scroll down, select the Description attribute, and then  click OK. 
+__ i. Complete the AND statement in the filter definition by setting the evaluation option to  equal to and entering: Production 
+__ j. Click OK on the Add Filter window. 
+__ k. Click OK in the Manage Filters window. 
+© Copyright IBM Corp. 2017 2-7 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+EXempty 
+__ l. In the New Set window, scroll down the Available filters list and then select  
+Production from the list of available filters. Click Add to move Production to the  
+Selected filters pane. 
+
+__ m. Click Finish. 
+__ 3. Verify that the Queue Managers folder in the MQ Explorer - Navigator view now contains  two sets: All and Production. 
+__ 4. Verify that the queue manager QM02 is a member of the Production set. 
+
+© Copyright IBM Corp. 2017 2-8 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise cleanup 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+By using MQ Explorer or MQSC, stop the queue manager QM02.  
+ • To stop the queue manager by using MQ Explorer, right-click the queue manager in the MQ  Explorer - Navigator view and then click Stop > Controlled. 
+ • To stop the queue manager by using a command, type: endmqm -c QM01 
+End of exercise 
+© Copyright IBM Corp. 2017 2-9 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 2. Using IBM MQ Explorer to create queue managers and queues 
+Exercise review and wrap-up 
+You should now be able to use IBM MQ Explorer to: 
+ • Create a queue manager and modify queue manager properties 
+ • Create local and alias queues and modify queue properties 
+ • Create a queue manager set that uses a custom filter to automatically assign it to the set 
+© Copyright IBM Corp. 2017 2-10 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 3. Using IBM MQ sample programs to test the configuration 
+Exercise 3. Using IBM MQ sample  programs to test the  
+configuration 
+Estimated time 
+00:30 
+Overview 
+In this exercise, you use the IBM MQ sample programs to put, get, and browse queues and test the  queue manager configuration. You then use IBM MQ Explorer and IBM MQ commands to verify the  actions of the sample programs. You also define and test an alias queue. 
+Objectives 
+After completing this exercise, you should be able to: 
+ • Use IBM MQ sample programs to put messages onto a queue, browse messages on a queue,  and get messages from a queue 
+ • Use IBM MQ Explorer and IBM MQ commands to display queue contents  
+ • Define and test an alias queue that refers to another queue 
+Introduction 
+In this exercise, you test the queue manager QM01 and queues that you defined in Exercise 1 by  using the MQ sample programs and MQ Explorer to put, get, and browse messages.  
+L Linux 
+The sample programs are in the /opt/mqm/samp/bin subdirectory. The path to this directory is  included in the /etc/environment file on the lab image for this course.  
+W Windows 
+The sample programs are in C:\Program Files\IBM\MQ\Tools\c\Samples\Bin64. The PATH  statement is already set on the Windows lab image.  
+The IBM MQ sample programs are run in a command window. The amqsput, amqsget, and amqsbcg sample programs that are used in this exercise accept two parameters. The first parameter is  required and is the name of a queue. The second parameter is optional and is the name of a queue  
+© Copyright IBM Corp. 2017 3-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 3. Using IBM MQ sample programs to test the configuration 
+manager. If the second parameter is omitted, the default queue manager is assumed. Both  parameters are case-sensitive. 
+A brief description of each program is provided. 
+ • The amqsput program connects to the queue manager and opens the queue. It reads lines of  text from the standard input device, generates a message from each line of text, and puts the  messages on the named queue. After the program reads a null line or the EOF character from  the standard input device, it closes the queue, and disconnects from the queue manager.  The command to start the program is: amqsput QName QmgrName 
+Example: amqsput Q1 QM01 
+ • The amqsget program connects to the queue manager, opens the queue for input, and gets all  the messages from the queue. It writes the text within the message to the standard output  device, waits 15 seconds (60 seconds if a message does not exist at the start) in case any more  messages are put on the queue. The program then closes the queue and disconnects from the  queue manager.  
+The command to start the program is: amqsget QName QmgrName 
+Example: amqsget Q2 QM01 
+ • The amqsbcg program connects to the queue manager and opens the queue for browsing. It  browses all the messages on the queue and writes their contents, in both hexadecimal and  character format, to the standard output device. It also returns, in a readable format, the fields in  the message descriptor for each message. It then closes the queue and disconnects from the  queue manager. 
+The command to start the program is: amqsbcg QName QmgrName 
+Example: amqsbcg Q3 QM01 
+Requirements 
+ • IBM MQ and IBM MQ Explorer 
+ • Queue manager QM01 and queues that were created in Exercise 1 
+ • The IBM MQ sample programs amqsput, amqsbcg, and amqsget 
+ • A text editor 
+© Copyright IBM Corp. 2017 3-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions  
+Exercise 3. Using IBM MQ sample programs to test the configuration 
+Part 1: Make QM01 is the default queue manager 
+The default queue manager processes any commands for which a queue manager name is not  explicitly specified. In this part of the exercise, you make QM01 the default queue manager so that  you do not have to specify the queue manager name when you run the IBM MQ sample programs. 
+__ 1. Open the MQ Explorer unless it is already open. 
+__ 2. Right-click IBM MQ, and then select Properties. The properties for MQ are displayed.  __ 3. In the Default queue manager name, type: QM01.  
+__ 4. Click Apply and then click OK.  
+Part 2: Put, get, and browse messages 
+In this part of the exercise, you use the queues that you created in Exercise 1 and the IBM MQ  sample programs to put, get, and browse messages. 
+__ 1. Use a sample program to put two messages on the local queue QL.A on QM01.  __ a. In a terminal window, type: amqsput QL.A 
+The program responds with:  
+Sample AMQSPUT0 start 
+target queue is QL.A 
+__ b. Enter some data and then press Enter. Each line of data that is entered becomes the  data portion of a new MQ message. 
+__ c. To end the sample program, press Enter on a blank line. 
+Troubleshooting 
+If the program does not run successfully, an MQ reason code is returned. 
+To interpret the reason code, use the control command mqrc at the C: or $ prompt followed by the  four-digit reason code. For example, type: mqrc 2085 
+__ 2. Use MQ Explorer to display the queue contents and browse the messages. 
+__ a. Select the Queue folder under QM01 in the MQ Explorer - Navigator view to display  the Queues view. 
+__ b. Right-click QL.A in the Queues view for QM01 and then click Browse messages. The  Message browser list contains one message for every message that you entered with  the amqsput sample program. 
+__ c. Double-click a message from the list of messages to display its properties. __ d. Click the Data properties tab to view the message data. 
+__ e. Click Close to close the Properties window. 
+© Copyright IBM Corp. 2017 3-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 3. Using IBM MQ sample programs to test the configuration 
+__ f. Click Close to close the message browser window. 
+__ 3. Use a sample program to browse the messages on the queue QL.A. Direct the command  results to a file and view the results. 
+In the terminal window, type: amqsbcg QL.A > out.txt 
+If the program does not run successfully, can you determine the reason for the failure? __ 4. Use a sample program to get the messages from the queue and empty the queue. Type: amqsget QL.A 
+The amqsget sample program can take a few seconds to run. It is finished when you see the  message: 
+no more messages 
+Sample AMQGET0 end 
+If the program does not run successfully, can you determine the reason for the failure? __ 5. Use the amqsput sample program to put three messages on the queue QL.A. 
+__ 6. Use an MSQC command to show the current depth (CURDEPTH) of QL.A (the number of  messages on the queue) and verify that the messages are on the queue. 
+__ a. Open a new terminal window. 
+__ b. Type: runmqsc QM01 
+__ c. Type: DIS Q(QL.A) CURDEPTH 
+__ 7. Define a new local queue on QM01 that is named QL.X with the attributes of the local queue  QL.A. 
+In the MQSC window, type: DEF QL(QL.X) LIKE(QL.A) 
+__ 8. Use a sample program or MQ Explorer to put some messages on QL.X. To use the sample program, type amqsput QL.X and then enter some messages. To use MQ Explorer, right-click QL.X in the Queues view and then click Put Test Message. 
+© Copyright IBM Corp. 2017 3-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 3. Using IBM MQ sample programs to test the configuration 
+__ 9. Clear the messages from the local queue QL.A. 
+In the window that is running MQSC, type: CLEAR QL(QL.A) 
+__ 10. Try to clear the messages from the alias queue QA.A. 
+In the MQSC window, type: CLEAR QA(QA.A) 
+You should receive a syntax error that indicates that the CLEAR command is valid for local  queues and topic strings only and not alias queues (QALIAS).  
+You cannot clear messages from an alias queue because it is a pointer to another queue  and does not hold messages.  
+__ 11. Delete the local queue QL.X. 
+In the MQSC window, type: DELETE QL(QL.X) 
+You should see that you cannot delete the queue because it is not empty.  
+To delete the queue and the messages, type: 
+DELETE QL(QL.X) PURGE 
+Part 3: Work with alias queues 
+In this part of the exercise, you use the alias queues that you created on QM01 in Exercise 1.  
+In Exercise 1, you created an alias queue that is named QA.A that points to the local queue QL.A  and an alias queue that is named QA.B that points to local queue QL.B. 
+__ 1. Using MQ Explorer or MQSC, determine whether the PUT messages attribute is set to  allowed (enabled) or inhibited (disabled) for the alias queue QA.A. 
+To use MQ Explorer, click the Queues folder under QM01 to display the Queues view. The  Put messages column shows the current state of the PUT attribute. 
+To use MQSC to display the PUT attribute, type: DIS QA(QA.A) 
+__ 2. If the PUT requests on the alias queue QA.A are allowed (enabled), change the queue PUT  attribute to inhibit them. 
+In window that is running MQSC, type: ALTER QA(QA.A) PUT(DISABLED) 
+__ 3. Use MQ Explorer or MQSC to determine whether the PUT messages attribute is set to  allowed (enabled) or inhibited (disabled) for the local queue QL.B. 
+If the PUT requests on the local queue QL.B are allowed, change the queue PUT attribute  to inhibit them. 
+In the window that is running MQSC, type: ALTER QL(QL.B) PUT(DISABLED) 
+__ 4. Use the amqsput sample program to try to put messages on both the alias and local queues. Run the sample program in the command window.  
+ - For QL.A, type: amqsput QL.A 
+ - For QA.A, type: amqsput QA.A 
+ - For QL.B, type: amqsput QL.B 
+ - For QA.B, type: amqsput QA.B 
+© Copyright IBM Corp. 2017 3-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 3. Using IBM MQ sample programs to test the configuration 
+The PUT request for QL.A succeeds but the other requests fail with reason code 2051  because PUT is inhibited.  
+QA.A and QL.B fail because PUT is inhibited on those queues. 
+QA.B fails because it is an alias queue for the local queue QL.B, which has PUT inhibited. 
+Exercise cleanup 
+__ 1. Change the local queue QL.B to allow PUT requests. 
+In the MQSC window, type: ALTER QL(QL.B) PUT(ENABLED) 
+__ 2. Change the alias queue QA.A to allow PUT requests. 
+In the MQSC window, type: ALTER QA(QA.A) PUT(ENABLED) 
+__ 3. Use MQ Explorer to clear any messages on the local queues QL.A and QL.B. __ a. In the Queues view, right-click QL.A and then click Clear Messages. 
+__ b. Select Clear will be used using CLEAR command and then click CLEAR. __ c. Click OK in the verification window. 
+__ d. Verify that the Current queue depth column value for QL.A is zero. 
+__ e. If any messages are on QL.B, repeat steps a – d to clear QL.B. 
+Note 
+You must use MQGET instead of CLEAR to empty a queue if:  
+ • Uncommitted messages are on the queue and they were put on the queue under sync point  • An application currently has the queue open 
+End of exercise 
+© Copyright IBM Corp. 2017 3-6 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise review and wrap-up You should now be able to: 
+Exercise 3. Using IBM MQ sample programs to test the configuration 
+ • Use MQ sample programs to put messages onto a queue, browse messages on a queue, and  get messages from a queue 
+ • Use MQ Explorer and MQSC to display queue contents 
+ • Use MQSC to change a queue to inhibit or allow PUTs 
+ • Use MQ Explorer and MQSC clear and delete queues 
+© Copyright IBM Corp. 2017 3-7 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 4. Connecting queue managers 
+Exercise 4. Connecting queue  managers 
+Estimated time 
+01:00 
+Overview 
+In this exercise, you create channels between two queue managers. You use the IBM MQ sample  programs to test the connection between the queue managers. 
+Objectives 
+After completing this exercise, you should be able to: 
+ • Configure a distributed network of two or more interconnected queue managers 
+ • Use IBM MQ commands to create the channels and supporting objects to implement distributed  queuing 
+ • Use the IBM MQ sample programs to test the connection between the queue managers 
+Introduction 
+In this exercise, you must configure two queue managers. One of queue managers (QM01) is a  local queue manager, and the other queue manager (QMR01) simulates a queue manager on a  remote server.  
+In Part 1 of this exercise, you create a server-connection channel on QMR01 so that you can  manage the queue manager as if it is a queue manager on another server. You learn more about  server-connection channels later in this course. 
+In this exercise, you configure two message channels between the queue managers so that  messages can flow in each direction. The local queue manager is QM01 that you created in  Exercise 1. You create queue manager QMR01 on the simulated remote server in this exercise.  The following figure summarizes the configuration requirements. 
+© Copyright IBM Corp. 2017 4-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 4. Connecting queue managers 
+In IBM MQ, channel authentication and connection authentication are enabled by default for all new  queue managers. By default, channel authentication and connection authentication prevent remote  connections to the queue manager from MQ Explorer. In one step of this exercise, you disable  channel authentication and connection authentication on the queue manager to allow connections  to remote queue managers from MQ Explorer. 
+The exercise uses TCP/IP as the communications protocol.  
+Requirements 
+ • IBM MQ and IBM MQ Explorer 
+ • The queue manager QM01 and queues that were created in Exercise 1 
+ • Familiarity with the sample programs that were described in Exercise 3 
+ • The IBM MQ sample programs amqsput, amqsget, amqsreq, and amqsech 
+ • A text editor 
+© Copyright IBM Corp. 2017 4-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions  
+Part 1: Create a remote queue manager 
+In this part of the exercise, you create queue manager QMR01.  
+Exercise 4. Connecting queue managers 
+You gain experience with the steps that are required to connect to a queue manager on a remote  server from MQ Explorer. You connect to this queue manager from MQ Explorer as if it is on a  remote server. 
+__ 1. Start the queue manager QM01 that you created in Exercise 1 unless it is already running. 
+__ 2. Using MQ Explorer, create a queue manager that is named QMR01 that uses a queue that is  named DLQ for a dead-letter queue and a listener that uses port number 9000. 
+__ 3. Using MQ Explorer, create the local queue DLQ for the queue manager dead-letter queue  (defined in the previous step). 
+__ 4. In IBM MQ, channel authentication and connection authentication are enabled by default for  all new queue managers. By default, channel authentication and connection authentication  prevent remote connections to the queue manager from MQ Explorer.  
+Use MQSC to disable channel authentication and connection authentication on QMR01 to  allow a remote connection from MQ Explorer. 
+__ a. In a command window, type: runmqsc QMR01 
+__ b. Display the queue manager properties. Type: DIS QMGR 
+__ c. Verify that the CHLAUTH attribute is set to ENABLED and that the CONNAUTH attribute  is set to SYSTEM.DEFAULT.AUTHINFO.IDPWOS. These settings are the default values. 
+__ d. Disable channel authentication. Type:  
+ALTER QMGR CHLAUTH(DISABLED) 
+__ e. Verify that the CHLAUTH attribute is now set to DISABLED. 
+__ f. For this exercise, disable client connection authentication. Type: 
+ALTER QMGR CONNAUTH(' ') 
+Note 
+A space character is between the single quotation mark characters in the CONNAUTH attribute of the  ALTER QMGR command. 
+__ g. Refresh the security cache for the queue manager. Type: 
+REFRESH SECURITY 
+__ h. End the MQSC session. Type: END 
+© Copyright IBM Corp. 2017 4-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Important 
+Exercise 4. Connecting queue managers 
+The steps to disable channel and connection authentication are not standard practice.  Authentication is disabled in this exercise because security configuration is covered in a later unit. 
+__ 5. Verify that the listener is running on QMR01. 
+__ a. In the MQ Explorer - Navigator view, click the Listeners folder under QMR01.  
+__ b. Verify that the listener that is named LISTENER.TCP is in the list, that the status is Running, and that the listener is running on port 9000. 
+
+__ 6. In this step, you configure the queue manager QMR01 so that you can connect to it from  MQ Explorer as if the queue manager is on a remote server.  
+In MQ Explorer, create a server connection channel (SVRCONN) on the queue manager  QMR01. 
+__ a. In the MQ Explorer - Navigator view, right-click the queue manager QMR01 and then  click Remote Administration. 
+__ b. In the Remote Administration window, click Create to create the  
+SYSTEM.ADMIN.SVRCONN channel.  
+Click OK on the confirmation window and then click Close. 
+Information 
+You can display the SYSTEM channels in MQ Explorer by clicking Channels in the MQ Explorer -  Navigator view and then clicking the Show System Objects icon in the Channels view. 
+__ 7. Connect to the queue manager QMR01 from MQ Explorer as if it is running on a remote  server. 
+__ a. In the MQ Explorer - Navigator view, right-click Queue Managers and then click Add  Remote Queue Manager. 
+__ b. In the Add Queue Manager window, type: QMR01 
+__ c. Select Connect directly and then click Next. 
+__ d. For the Host name or IP address, type: localhost 
+__ e. For the Port number, type: 9000 
+© Copyright IBM Corp. 2017 4-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 4. Connecting queue managers 
+__ f. Verify that the server-connection channel is SYSTEM.ADMIN.SVRCONN. __ g. Click Finish.  
+The queue manager should now be visible in the MQ Explorer - Navigator view as  QMR01 on ‘localhost(9000)’. 
+Part 2: Define the channels and listener on the local queue manager 
+In this part of the exercise, you define a sender channel and a receiver channel on queue manager,  QM01. 
+__ 1. Using a text editor, create an MQSC command file that is named ConnectLocal.mqsc to  define the MQ objects that are required for a connection between QM01 and QMR01.  
+__ a. Define a message sender channel. 
+ - Channel name = QM01.QMR01 (where QM01 is the local queue manager name and QMR01 is the remote queue manager) 
+ - Protocol = TCP/IP 
+ - Network address of QMR01 = localhost(9000) (where localhost is the host name  and 9000 is the listener port) 
+ - Transmission queue name = QMR01 (the same as the name of the remote queue  manager) 
+Type: 
+DEF CHL(QM01.QMR01) CHLTYPE(SDR) REPLACE + 
+TRPTYPE(TCP) CONNAME('localhost(9000)') + 
+XMITQ(QMR01) 
+__ b. Define a receiver channel. The attributes must match the sender channel of the remote  queue manager QMR01. Type:  
+DEF CHL(QMR01.QM01) CHLTYPE(RCVR) REPLACE +  
+TRPTYPE(TCP) 
+__ c. Create a transmission queue with the same name as the remote queue manager  QMR01. Type:  
+DEF QL(QMR01) REPLACE USAGE(XMITQ) 
+__ 2. Use runmqsc to run the script file ConnectLocal.mqsc against the local queue manager  QM01. Redirect the output to a text file that is named LocalReport.txt. 
+__ a. Type: runmqsc QM01 < ConnectLocal.mqsc > LocalReport.txt 
+Note 
+If you did not save the ConnectLocal.mqsc file in the current directory, you must either change  directories or specify the path name. For example:  
+runmqsc QM01 < /labfiles/Lab04/ConnectLocal.mqsc > /labfiles/Lab04/LocalReport.txt 
+© Copyright IBM Corp. 2017 4-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 4. Connecting queue managers 
+__ 3. Examine the LocalReport.txt file and verify that all commands ran successfully. __ 4. Use MQ Explorer to verify that QM01 now has two channels: 
+ - A sender channel that is named QM01.QMR01 
+ - A receiver channel that is named QMR01.QM01 
+
+__ 5. Verify that QM01 now has a transmission queue that is named QMR01.  
+__ 6. When you created QM01 in Exercise 1, you did not create or start a listener. In this step, use  the DEFINE LISTENER command to create a listener on port 1414 for the queue manager  QM01.  
+Use the CONTROL(QMGR) option in the DEFINE LISTENER command to associate the  listener service with the queue manager. The listener service automatically starts when the  queue manager starts and stops when the queue manager stops. 
+In MQSC for QM01, type: 
+DEF LISTENER(LISTENER.TCP) TRPTYPE(TCP) PORT(1414) CONTROL(QMGR) __ 7. Use the START LISTENER command to start the listener on QM01. 
+In MQSC for QM01, type: 
+START LISTENER(LISTENER.TCP) 
+Alternatively, you can start the MQ listener by using the runmqlsr command. For example: runmqlsr -t TCP -p 1414 -m QM01  
+If you use the runmqlsr command, you must use the endmqlsr command to manually stop  the service. 
+L Linux 
+If you want to start the MQ listener in the background on Linux, type: 
+nohup runmqlsr -m QM01 -t tcp -p 1414 2>&1 & 
+You can verify that the listener is running by typing the following command in a terminal window:  ps -ef | grep runmqlsr 
+© Copyright IBM Corp. 2017 4-6 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 4. Connecting queue managers 
+__ 8. To eliminate any security errors and security configuration in this exercise, disable the use  of channel authentication and connection authentication on QM01. 
+In MQSC for QM01, type:  
+ALTER QMGR CHLAUTH(DISABLED) 
+ALTER AUTHINFO(SYSTEM.DEFAULT.AUTHINFO.IDPWOS) +  
+AUTHTYPE(IDPWOS) CHCKCLNT(NONE) 
+REFRESH SECURITY 
+Important 
+The steps to disable channel and connection authentication are not standard practice.  Authentication is disabled in this exercise because security configuration is covered in a later unit. 
+Part 3: Define the channels on the remote queue manager 
+In this part of the exercise, you define the sender channel, receiver channel, and transmission  queue for QMR01. 
+__ 1. Using a text editor, create an MQSC command file that is named ConnectRemote.mqsc to  define the MQ objects that are required for a connection between your local queue manager  and the remote queue manager.  
+__ a. Define a sender channel that matches the receiver channel on QM01. 
+ - Channel name = QMR01.QM01  
+ - Protocol = TCP/IP 
+ - Network address of QM01 = localhost(1414)  
+ - Transmission queue name = QM01 
+Type: 
+DEF CHL(QMR01.QM01) CHLTYPE(SDR) REPLACE + 
+TRPTYPE(TCP) CONNAME('localhost(1414)') + 
+XMITQ(QM01) 
+__ b. Define a receiver channel. The attributes must match the sender channel QM01. Type:  
+DEF CHL(QM01.QMR01) CHLTYPE(RCVR) REPLACE +  
+TRPTYPE(TCP) 
+__ c. Create a transmission queue for QM01. Type:  
+DEF QL(QM01) REPLACE USAGE(XMITQ) 
+__ 2. Use runmqsc to run the script file ConnectRemote.mqsc against the remote queue manager  QMR01. Redirect the output to a text file that is named RemoteReport.txt. 
+Type: runmqsc QMR01 < ConnectRemote.mqsc > RemoteReport.txt 
+__ 3. Use the report and MQ Explorer to verify that QMR01 now has two channels: 
+ - A receiver channel that is named QM01.QMR01 
+ - A sender channel that is named QMR01.QM01 
+© Copyright IBM Corp. 2017 4-7 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 4. Connecting queue managers 
+Also, verify that QMR01 now has a transmission queue that is named QM01. 
+Part 4: Test and start the connection 
+__ 1. To test the channel definitions, open another command window, and use the runmqsc command to ping the message channel from the QM01 (the sender). Type: 
+runmqsc QM01 
+PING CHL(QM01.QMR01) 
+Check for successful completion. 
+__ 2. In MQSC for QM01, use the START CHANNEL command to start the sender channel and  verify that it is working.  
+Type: START CHL(QM01.QMR01) 
+__ 3. Using MQSC for QM01, verify that the channel is running.  
+Type: DIS CHSTATUS(*) 
+You should see that the channel QM01.QMR01 is running, the remote queue manager  name is QMR01, and the transmission queue is QMR01. 
+Part 5: Test queues in a distributed environment 
+In this part of the exercise, you create the queues for testing queue managers in a distributed  environment and then use the MQ sample programs to put and get messages. 
+__ 1. On QMR01, define a local queue that is named QL.A. 
+In MQSC for QMR01, type: DEF QL(QL.A) REPLACE 
+__ 2. In MQSC, define the application queues on QM01. 
+__ a. Delete and redefine the local queue QL.A. Type:  
+DEF QL(QL.A) REPLACE 
+__ b. Verify that you defined a transmission queue that is named QMR01. Type: DIS QL(QMR01) 
+Verify that the USAGE attribute is set to XMITQ. 
+__ c. Create a remote queue definition that is named QRMT01 that points to the local queue  QL.A on QMR01 and uses QMR01 for the transmission queue.  
+Type the following command: 
+DEF QR(QRMT01) REPLACE + 
+RNAME(QL.A) RQMNAME(QMR01) + 
+XMITQ(QMR01) 
+__ d. Verify the remote queue definition. Type: 
+DIS QR(QRMT01) 
+__ 3. Use the sample program amqsput to send messages from queue manager QM01 to the  queue QL.A on queue manager QMR01.  
+© Copyright IBM Corp. 2017 4-8 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+In a command window, type: amqsput QRMT01 QM01  
+Exercise 4. Connecting queue managers 
+__ 4. Use MQ Explorer to verify that the messages you sent in Step 3 are on queue QL.A on  QMR01. 
+You can also use MQSC to check the CURDEPTH attribute of the target queue QL.A on  QMR01. 
+__ 5. If the messages do not arrive on the target, investigate the possible causes. Check the  following items: 
+__ a. Is the transmission queue on QM01 empty? 
+__ b. Is the sender channel on QM01 running? 
+__ c. Is the dead-letter queue of the remote queue manager QMR01 empty? __ d. Inspect the error logs in both queue managers. 
+Exercise cleanup 
+__ 1. Clear the messages on QL.A on the QMR01 queue manager. 
+__ 2. Leave the queue managers running. You use these queue managers in the next exercise. End of exercise 
+© Copyright IBM Corp. 2017 4-9 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise review and wrap-up 
+Having completed this exercise, you should be able to: 
+ • Create the objects that are required for distributed queuing  • Configure and refresh the started MQ listener 
+ • Start message channels manually 
+ • Use sample applications to test the message flow 
+Exercise 4. Connecting queue managers 
+© Copyright IBM Corp. 2017 4-10 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 5. Connecting an IBM MQ client 
+Exercise 5. Connecting an IBM MQ  client 
+Estimated time 
+01:00 
+Overview 
+In this exercise, you configure your system to act as a client that is connected to an IBM MQ server.  You use various methods to gain experience with the client connectivity methods that are available  in IBM MQ.  
+Objectives 
+After completing this exercise, you should be able to: 
+ • Create a server connection channel to support client connections 
+ • Use a URL to specify the location of the client connection definition table 
+ • Use the MQSERVER environment variable to specify a client connection channel  • Use the client configuration file to specify a client connection channel 
+Introduction 
+As you learned in lecture, you can use different methods to establish a connection between an MQ  client and an MQ server. In this exercise, you use the different methods to give you experience with  each. In an actual implementation, you would use one of these methods. 
+In this exercise, you use the client sample programs to put, browse, and get messages by using a  client connection. A brief description of each of the programs you might use is provided:  
+ • amqsputc puts a message to a queue. It is started the same way as amqsput and uses the  same parameter structure, but it connects as an MQ client instead of a using a direct  connection to the MQ server.  
+ • amqsbcgc browses the messages on a queue. It is started the same way as amqsbcg and uses  the same parameter structure, but it connects as an MQ client. 
+ • amqsgetc gets the messages from a queue. It is started the same way as amqsget and uses the  same parameter structure, but it connects as an MQ client. 
+To simplify running this exercise, you should use two console windows. Use one of the console  windows for running the sample programs. Use the other console window for entering queue  manager control and configuration commands. 
+© Copyright IBM Corp. 2017 5-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Requirements 
+ • IBM MQ and IBM MQ Explorer. 
+ • IBM MQ sample programs 
+Exercise 5. Connecting an IBM MQ client 
+ • The queue manager QM01 that was created in Exercise 1 and modified in Exercise 4 to disable  authentication. 
+ • On Windows, the mqclient.ini file in the C:\labfiles\Lab05 directory. 
+© Copyright IBM Corp. 2017 5-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions  
+Exercise 5. Connecting an IBM MQ client 
+In this exercise, the queue manager QM01 is configured to act as a server for the MQ clients. You  use the MQ client sample programs to connect the MQ client to the queue manager QM01. 
+Important 
+For this exercise, channel authentication must be disabled on QM01 as instructed in Exercise 4.  
+Server queue manager setup 
+__ 1. Reuse the queue manager that is defined in Exercises 1 and 4 (QM01) as a server queue  manager.  
+On the server queue manager QM01, define a server connection (SVRCONN) channel so  that MQ clients can connect to the queue manager. When you define the server-connection  channel, ensure that the channel definition meets the following requirements: 
+ - Use QM01_CLNT as the channel name. The protocol is TCP. 
+ - To ensure that the user has the object authority on the target server, add the MCA user  identifier option MCAUSER.  
+ - If the queue manager is running on Windows, set MCAUSER to: MUSR_MQADMIN  - If the queue manager is on Linux, set MCAUSER to: mqm 
+W Windows 
+To define the SVRCONN on QM01, type:  
+DEFINE CHL(QM01_CLNT) CHLTYPE(SVRCONN) TRPTYPE(TCP) + 
+MCAUSER(MUSR_MQADMIN) 
+L Linux 
+To define the SVRCONN on QM01, type: 
+DEFINE CHL(QM01_CLNT) CHLTYPE(SVRCONN) TRPTYPE(TCP)+   
+MCAUSER('mqm') 
+Important 
+In this lab, you are using MUSR_MQADMIN or “mqm” for the MCAUSER user name. In a real  implementation, you would create an administrative user ID for MQ and use that ID for the  MCAUSER. Never use MUSR_MQADMIN or “mqm” in a real implementation. You learn more about  security later in this course. 
+© Copyright IBM Corp. 2017 5-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+__ 2. Verify the channel that you defined in Step 1. Type: DIS CHL(QM01_CLNT) 
+You can also verify the channel by using MQ Explorer. 
+Exercise 5. Connecting an IBM MQ client 
+__ 3. On the server queue manager QM01, define another server connection (SVRCONN)  channel that you use later in this exercise to connect by using a URL. 
+Use FILEURL as the channel name. The protocol is TCP. 
+To ensure that the user has the object authority on the target server, add the MCA user  identifier option MCAUSER.  
+W Windows 
+To define the SVRCONN and set the MCAUSER to MUSR_MQADMIN on QM01, type:  
+DEFINE CHL(FILEURL) CHLTYPE(SVRCONN) TRPTYPE(TCP) + 
+MCAUSER(MUSR_MQADMIN) 
+L Linux 
+To define the SVRCONN and set the MCAUSER to mqm on QM01, type: 
+DEFINE CHL(FILEURL) CHLTYPE(SVRCONN) TRPTYPE(TCP)+   
+MCAUSER('mqm') 
+__ 4. Verify the channel that you defined in Step 3. Type: 
+DIS CHL(FILEURL) 
+You can also verify the channel by using MQ Explorer. 
+__ 5. In Exercise 4, you defined a TCP listener on port 1414 for QM01. Verify that the listener is  running. In MQSC for QM01, type: 
+DIS LSSTATUS(LISTENER.TCP) 
+The listener STATUS should be RUNNING and the PORT should be 1414.  
+If the listener is not running, start the MQ listener on QM01 on port 1414 by typing: START LISTENER(LISTENER.TCP) 
+Method 1: Client connection by using a file URL 
+In this part of the exercise, you connect to the queue manager QM01 by using a client connection  channel that is defined on the client. The client locates the CCDT by using the file URL that is  specified in the MQCCDTURL environment variable.  
+__ 1. Create a directory to store the client CCDT table. 
+© Copyright IBM Corp. 2017 5-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+W Windows 
+Exercise 5. Connecting an IBM MQ client 
+Create a subdirectory under the C:\labfiles directory that is named: ccdturl 
+L Linux 
+Create a subdirectory under /home/localuser/labfiles that is named: ccdturl 
+__ 2. On the client CCDT table, define a client connection with the same name as the server  connection on QM01 (FILEURL). 
+__ a. Start a client MQSC session. Type: 
+runmqsc -n 
+The command should return: 
+Starting local MQSC for 'AMQCLCHL.TAB'. 
+__ b. Verify that the CCDT table on the client is empty. Type: 
+DIS CHL(*) 
+The command should return: 
+File 'AMQCLCHL.TAB' not found. 
+__ c. Create the client connection channel that is named FILEURL that connects to QM01.  Type: 
+DEF CHL(FILEURL) CHLTYPE(CLNTCONN) TRPTYPE(TCP) + 
+CONNAME('localhost(1414)') 
+__ d. Verify that the channel is now defined in the CCDT table. Type: 
+DIS CHL(*) 
+The command should return: 
+CHANNEL(FILEURL) CHLTYPE(CLNTCONN) 
+__ e. Exit client MQSC mode.  
+__ 3. Copy the CCDT table file AMQCLCHL.TAB from the default location to the ccdturl subdirectory that you created in Step 1. 
+© Copyright IBM Corp. 2017 5-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+W Windows 
+Exercise 5. Connecting an IBM MQ client 
+On your image, the default location for the AMQCLCHL.TAB file is the MQ data directory:  C:\ProgramData\IBM\MQ 
+L Linux 
+On your image, the default location for the AMQCLCHL.TAB file is MQ data directory: /var/mqm 
+__ 4. Set the MQCCDTURL environment variable to point to the CCDT that contains the definition  of channel FILEUR by using a file URL. 
+Type the following commands in the same command window that you use to run the MQ  sample client programs.  
+W Windows 
+Type: SET MQCCDTURL=file://C:/labfiles/ccdturl/AMQCLCHL.TAB 
+Confirm that the MQCCDTURL variable was set correctly. Type: echo %MQCCDTURL% 
+L Linux 
+Type: export MQCCDTURL=file:///home/localuser/labfiles/ccdturl/AMQCLCHL.TAB Confirm that the MQCCDTURL variable was set correctly. Type: echo $MQCCDTURL 
+__ 5. Use the amqsputc sample program to put messages on the queue QL.A on QM01. Type: amqsputc QL.A  
+__ 6. While the amqsputc client program is running in the command window, verify that server  connection channel FILEURL is running on QM01 in another window. In MQSC for QM01,  type:  
+DIS CHSTATUS(FILEURL) 
+You can also check the channel status in MQ Explorer by right-clicking the channel in the  Channels view and then clicking Status. 
+__ 7. In the test window where amqsputc is running, put some messages to QL.A. __ 8. Using MQ Explorer, verify that your messages are on the QL.A on QM01. __ 9. Use the amqsbcgc client program to browse the messages on the server queue. Type: amqsbcgc QL.A 
+The value of ReplyToQmgr in the MQMD shows you the queue manager to which the client  connected. 
+© Copyright IBM Corp. 2017 5-6 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 5. Connecting an IBM MQ client 
+__ 10. Use the amqsgetc program to get the messages from QL.A and empty the queue. Type: amqgetc QL.A  
+__ 11. Clear the MQCCDTURL environment variable. 
+W Windows 
+From the command prompt, type: SET MQCCDTURL= 
+L Linux 
+In the terminal window, type: unset MQCCDTURL 
+Method 2: Client connection by using the MQSERVER environment variable 
+In this part of the exercise, use the MQSERVER environment variable to specify a client connection  channel.  
+__ 1. Use the MQSERVER environment variable to provide a client-connection channel definition  to connect to the server queue manager (QM01) by using the QM01_CLNT channel. 
+Enter the following commands according to your system type. 
+W Windows 
+SET MQSERVER=QM01_CLNT/TCP/localhost(1414) 
+Confirm that the MQSERVER variable was set correctly. Type: echo %MQSERVER% 
+L Linux 
+export MQSERVER=QM01_CLNT/TCP/'localhost(1414)' 
+Confirm that the MQSERVER variable was set correctly. Type: echo $MQSERVER 
+__ 2. In the same window that you set the MQSERVER environment variable, test the client  connection. Use the amqsputc sample program to put messages on the queue QL.A on the  QM01 queue manager. Type: 
+amqsputc QL.A 
+__ 3. While the amqsputc client program is running in the command window, verify that server  connection channel QM01_CLNT is running on QM01 in another window.  
+In MQSC for QM01, type:  
+DIS CHSTATUS(QM01_CLNT) 
+© Copyright IBM Corp. 2017 5-7 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 5. Connecting an IBM MQ client 
+You can also check the channel status in MQ Explorer by right-clicking the channel in the  Channels view and then clicking Status. 
+__ 4. In the test window where amqsputc is running, put some messages to QL.A. __ 5. Using MQ Explorer, verify that your messages are on the QL.A on QM01. __ 6. Use the amqsbcgc client program to browse the messages on the server queue. Type: amqsbcgc QL.A 
+The value of ReplyToQmgr in the MQMD shows you the queue manager to which the client  connected. 
+__ 7. Use the amqsgetc program to get the messages from QL.A and empty the queue. Type: amqsgetc QL.A  
+__ 8. Clear the MQSERVER environment variable. 
+L Linux 
+In a terminal window, type: unset MQSERVER 
+W Windows 
+From a command prompt, type: SET MQSERVER= 
+Method 3: Client connection by using the client configuration file 
+In this part of the exercise, you use the client configuration file to specify information about the  client channels. The template for the client configuration file that is named mqclient.ini is  provided for you in the lab files on the image. 
+W Windows 
+The client configuration file mqclient.ini is in the C:\labfiles\Lab05 directory. 
+L Linux 
+The client configuration file mqclient.ini is in the /var/mqm directory. 
+__ 1. Open the client configuration file mqclient.ini in a text editor. 
+__ a. Edit the ServerConnectionParms attribute to specify the connection to the QM01_CLNT  channel on QM01. Type: 
+QM01_CLNT/TCP/localhost(1414) 
+© Copyright IBM Corp. 2017 5-8 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Example: 
+CHANNELS: 
+ DefRecon=YES 
+Exercise 5. Connecting an IBM MQ client 
+ ServerConnectionParms=QM01_CLNT/TCP/localhost(1414) 
+__ b. Save and close the file. 
+__ 2. Use the MQCLNTCF environment variable to identify the location of the client configuration  file.  
+Enter the following commands according to your system type. 
+W Windows 
+SET MQCLNTCF="C:\labfiles\Lab05\mqclient.ini" 
+L Linux 
+export MQCLNTCF=/var/mqm/mqclient.ini 
+__ 3. Test the client connection.Use amqsputc to put messages on the queue QL.A on the QM01  queue manager. Type: 
+amqsputc QL.A 
+__ 4. While the amqsputc client program is running in the command window, verify that server  connection channel QM01_CLNT is running on QM01 in another window. In MQSC for  QM01, type:  
+DIS CHSTATUS(QM01_CLNT) 
+You can also check the channel status in MQ Explorer by right-clicking the channel in the  Channels view and then clicking Status. 
+__ 5. In the test window where amqsputc is running, put some messages to QL.A. __ 6. Using MQ Explorer, verify that your messages are on the QL.A on QM01. __ 7. Use the amqsbcgc client program to browse the messages on the server queue. Type: amqsbcgc QL.A 
+The value of ReplyToQmgr in the MQMD shows you the queue manager to which the client  connected. 
+__ 8. Use the amqsgetc program to get the messages from QL.A and empty the queue. Type: amqsgetc QL.A  
+__ 9. Clear the MQCLNTCF environment variable. 
+© Copyright IBM Corp. 2017 5-9 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+W Windows 
+From a command prompt, type: SET MQCLNTCF= 
+L Linux 
+In a terminal window, type: unset MQCLNTCF 
+End of exercise 
+Exercise 5. Connecting an IBM MQ client 
+© Copyright IBM Corp. 2017 5-10 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise review and wrap-up 
+Exercise 5. Connecting an IBM MQ client 
+In the absence of any security exits, the IBM MQ client uses a field in the channel descriptor to pass  the client logged-on user ID to the server where it is used for access control.  
+The problem with this approach is that spoofing, or pretending to be someone you are not, is easy.  If you have administrative control of the client system, you can define a user ID, such as mqm or  MUSR_MQADMIN. You can then use that ID to connect to a remote queue manager with full access to  that queue manager. This approach is not satisfactory. 
+Having completed this exercise, you should be able to: 
+ • Create a server connection channel to support client connections 
+ • Use a URL to specify the location of the client connection definition table 
+ • Use the MQSERVER environment variable to specify a client connection channel  • Use the client configuration file to specify a client connection channel 
+© Copyright IBM Corp. 2017 5-11 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 6. Implementing a trigger monitor 
+Exercise 6. Implementing a trigger  monitor 
+Estimated time 
+01:00 
+Overview 
+In this exercise, you modify queue parameters to implement triggering. You define a process object  that identifies the IBM MQ echo sample program and triggers the program when a message arrives  on a queue. You use the request sample program to send messages to the queue and retrieve the  responses. 
+Objectives 
+After completing this exercise, you should be able to: 
+ • Apply triggering parameters to queues 
+ • Start a trigger monitor 
+ • Test triggering by using IBM MQ sample programs  
+Introduction 
+In this exercise, you modify the parameters of a queue to implement triggering. You then define a  process object that identifies an IBM MQ sample program (amqsech) that is triggered when a  message arrives on that queue. You use the amqsreq sample program to send messages to the  queue and retrieve the responses. The trigger monitor starts the other sample programs and builds  the reply messages.  
+© Copyright IBM Corp. 2017 6-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 6. Implementing a trigger monitor 
+The following figure shows the IBM MQ objects that you create and how the sample programs are  used in this exercise. 
+
+ • The Request sample program amqsreq puts the message on the application queue QL.A and  gets a reply message from the QM.REPLY queue.  
+The command to start the program is: amqsreq Qname QmgrName replyto_qname Example: amqsreq QL.A QM01 QM.REPLY. 
+The program reads lines of text from the standard input device (the terminal windows), converts  them to request messages, and then puts the messages on the named queue. 
+When a null line is entered, the program gets the messages from the reply-to queue and  displays those messages on the standard output device. 
+The amqsreq program stops when the queue is empty. 
+ • A trigger monitor starts the Echo program amqsech. The amqsech program connects to the  queue manager that is named in the structure that is passed to it by the trigger monitor and then  opens the queue that is also named in the structure.  
+The amqsech program gets a message from the application queue, QL.A, and creates a  message with the same application data as the original message. It puts the new message on  the reply-to queue named in the message descriptor of the original message, QM.REPLY. The  program then gets each of the remaining messages on the request queue in turn and generates  a reply in the same way. When the request queue is empty, the program closes the queue and  disconnects from the queue manager. 
+© Copyright IBM Corp. 2017 6-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 6. Implementing a trigger monitor 
+The following screen capture of a Linux image provides an example of how to arrange your terminal  windows so that you see the amqsreq program in one window and the trigger monitor in another  window.  
+Upon successful completion of Part 2 of this exercise, you should see that when you run the  amqsreq program, the trigger monitor window indicates that the amqsech sample program starts. 
+
+In Part 3 of this exercise, a trigger monitor starts the amqsinq program. The program connects to  the queue manager, opens the request queue, gets a message from the queue, and interprets the  application data as the name of a queue. It then constructs a reply message with the attribute  values, and puts the message on the reply-to queue. The amqsinq program continues to get each  of the remaining messages on the request queue and generates a reply. When the request queue  is empty, the program closes the queue and disconnects from the queue manager. 
+It is not necessary for you to stop the trigger monitor at the end of this lab; changes can be made  while the trigger monitor is running. The trigger monitor stops with the queue manager. You can  force the trigger monitor to stop by closing the window in which the trigger monitor was running or  use Ctrl+C to end the process.  
+Requirements 
+ • IBM MQ and IBM MQ Explorer  
+ • The sample programs amqsreq, amqsech, and amqsinq 
+ • A text editor 
+ • The queue manager QM01 and queues that were created in Exercise 1  
+© Copyright IBM Corp. 2017 6-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions  
+Exercise 6. Implementing a trigger monitor 
+In this exercise, you modify the parameters of a queue to implement triggering. You then define a  process object that identifies an IBM MQ sample program (amqsech) that is triggered when a  message arrives on that queue. You use the amqsreq sample program to send messages to the  queue and retrieve the responses. The trigger monitor starts the other sample programs and builds  the reply messages.  
+Part 1: Configure the queue manager for triggering 
+__ 1. Prepare an MQSC command file that is named trig.mqsc to create all the following objects  on the default queue manager QM01. 
+Use the REPLACE parameter on all relevant MQSC commands so that the command file  can be run again if necessary. 
+__ a. Create an initiation queue that is named QL.INITQ. 
+Type: DEFINE QL(QL.INITQ) REPLACE 
+__ b. Alter the local queue that is named QL.A to enable triggering. The arrival of the first  message on QL.A triggers the appropriate application. Make sure that the PUT and  GET operations are enabled, and clear any messages that might be on the queue from  a previous lab. 
+Type:  
+DEFINE QL(QL.A) REPLACE + 
+TRIGGER TRIGTYPE(FIRST) + 
+PROCESS(PR.ECHO) INITQ(QL.INITQ) 
+__ c. Define a process to identify the application to start. Define the process so that amqsech is started synchronously with the trigger monitor. Name the process: PR.ECHO 
+Use one of the following commands that are based on your system type.  
+W Windows 
+DEFINE PROCESS(PR.ECHO) REPLACE +   
+APPLICID('amqsech') 
+L Linux 
+DEFINE PROCESS(PR.ECHO) REPLACE +   
+APPLICID('/opt/mqm/samp/bin/amqsech') 
+__ d. Define a model queue that is named QM.REPLY. The sample program amqsreq opens  this queue to create a temporary dynamic reply-to queue. 
+Type: DEFINE QM(QM.REPLY) REPLACE 
+© Copyright IBM Corp. 2017 6-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 6. Implementing a trigger monitor 
+__ 2. Use runmqsc to process the command file. Open the report in a text editor and verify that all  the objects are successfully created. If unsuccessful, edit and rerun the command file until  all the objects are created.  
+Type: runmqsc QM01 < trig.mqsc > trigreport.txt 
+Information 
+You can verify the process definition in MQ Explorer by clicking the Process Definitions folder  under the queue manager in the MQ Explorer - Navigator view. 
+You can modify the process definition in MQ Explorer by double-clicking the process name in the  Process Definitions view. 
+__ 3. Use the runmqtrm control command to start the trigger monitor. Specify your queue  manager and the name of the initiation queue.  
+Type: runmqtrm -q QL.INITQ -m QM01 
+You should see that the trigger monitor program is running and waiting for a message.  Do not close this window. If you close this window, the trigger monitor stops. 
+Part 2: Test triggering 
+__ 1. Open a new command window and run amqsreq to put some request messages on the local  queue that is enabled for triggering.  
+Type: amqsreq QL.A QM01 QM.REPLY 
+__ 2. Type a message, and press Enter.  
+For example, type: Hello this is a message from me 
+__ 3. Press Enter again to end the sample program. 
+__ 4. Verify that the amqsreq program starts and that you received a response message in the  command window. 
+The response message is similar to the following message: 
+response <Hello this is a message from me> 
+The program continues to run a few seconds and the following message is displayed: 
+no more replies 
+Sample QMQSREQ0 end 
+__ 5. In the trigger monitor window, verify that the amqsech program started and received the  message.  
+If triggering failed, investigate the possible causes. Was one of the conditions for a trigger  event not satisfied? 
+© Copyright IBM Corp. 2017 6-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Part 3: Test triggering with amqsinq 
+Exercise 6. Implementing a trigger monitor 
+__ 1. In MQSC, create a second process object on QM01 so that the trigger monitor starts  amqsinq instead of amqsech. 
+W Windows 
+DEFINE PROCESS(PR.INQ) REPLACE +  
+APPLICID('amqsinq')  
+L Linux 
+DEFINE PROCESS(PR.INQ) REPLACE +  
+APPLICID('/opt/mqm/samp/bin/amqsinq') 
+__ 2. Alter the queue QL.A to reference the new process.  
+In MQSC, type: ALTER QL(QL.A) PROCESS(PR.INQ) 
+__ 3. Run amqsreq again. The amqsinq program now expects the application data in each  message to contain the name of a queue. For example, you can use the names of the  following queues: 
+QL.A 
+QM.REPLY 
+SYSTEM.ADMIN.COMMAND.QUEUE 
+Type: amqsreq QL.A QM01 QM.REPLY 
+Type a valid queue name. 
+Press Enter again to end the sample program. 
+__ 4. Verity that the trigger monitor starts amqsinq in the trigger monitor window.  
+__ 5. In the window where you entered the request, verify that amqsreq receives the request. The  replies consist of an Inquire on attributes of the named queues. 
+Your results should appear similar to the following example: 
+C:\> amqsreq QL.A QM01 QM.REPLY 
+Sample AMQSREQ0 start 
+server queue is QL.A 
+replies to AMQ.537CB40C021B0220 
+QL.A  
+response <QL.A has 0 messages, used by 1 jobs> 
+no more replies 
+Sample AMQSREQ0 end 
+The trigger monitor window should show that amqsinq is the process that started. 
+© Copyright IBM Corp. 2017 6-6 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty <o:p\ 
+Exercise 6. Implementing a trigger monitor 
+__ 6. Alter the process object so the trigger monitor starts amqsinq as a separate asynchronous  process.  
+In MQSC for QM01, type the following command to modify the process definition. 
+W Windows 
+ALTER PROCESS(PR.INQ) APPLICID('start amqsinq') 
+L Linux 
+Set the ENVRDATA attribute to a single space character followed by the ampersand character to  run the application in the background. Type: 
+ALTER PROCESS(PR.INQ) ENVRDATA(' &') 
+__ 7. Run amqsreq again following the directions in Step 3 and verify that the triggered application  opens in a separate window (on Windows) or a background process (on Linux). 
+__ 8. Stop the trigger monitor (close the trigger monitor window). 
+Information 
+The trigger monitor stops with the queue manager. You can force the trigger monitor to stop by  closing the window in which the trigger monitor was running or use Ctrl+C to end the process.  
+In a real implementation, it is not necessary for you to stop the trigger monitor; changes can be  made to the queues and queue manager while the trigger monitor is running. 
+__ 9. Use MQSC, the amqsget sample program, or MQ Explorer to clear all the messages on  QL.A if any exist. 
+End of exercise 
+© Copyright IBM Corp. 2017 6-7 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise review and wrap-up 
+Having completed this exercise, you should be able to:  • Apply triggering parameters to queues 
+ • Start a trigger monitor 
+ • Test triggering by using IBM MQ sample programs  
+Exercise 6. Implementing a trigger monitor 
+© Copyright IBM Corp. 2017 6-8 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 7. Running an IBM MQ trace 
+Exercise 7. Running an IBM MQ trace 
+Estimated time 
+00:30 
+Overview 
+In this exercise, you start a trace on the IBM MQ amqsput and amqsget sample programs. You  then use the sample programs to send and receive messages and examine the trace output. 
+Objectives 
+After completing this exercise, you should be able to: 
+ • Start and stop an IBM MQ trace 
+ • Analyze the output from the IBM MQ trace  
+Introduction 
+The trace function in MQ is used for problem determination or as a program development aid.  Service personnel might request that a scenario is re-created and traced for solving error or  unexpected results.  
+In this exercise, you start a trace on the sample programs. Then, you use a simple scenario of  putting and getting a message from a local queue that is called QL.A on queue manager QM01 by  using the sample programs. You also get the process ID (PID) of the sample programs, which you  use to locate the trace files. 
+In this exercise, you have a choice of either using the commands to start and stop a trace, or using  MQ Explorer for these tasks.  
+Attention 
+The trace started through MQ Explorer has some limitations. It is all or nothing; you have no choice  about the traced components, even if you clear the option for “all”.  
+The commands that are used for controlling trace are: 
+ • strmqtrc to enable tracing. The command includes optional parameters that specify the level  of tracing. In this exercise, you use the -m parameter and the queue manager name to specify  the name of the queue manager. 
+ • endmqtrc to end a trace. In this exercise, you use the -m parameter and queue manager name  to specify the name of the queue manager. 
+ • dspmqtrc to format a trace file (UNIX and Linux only). 
+© Copyright IBM Corp. 2017 7-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 7. Running an IBM MQ trace 
+Sample trace files are provided with the lab files the Lab07\Solution subdirectory. 
+Requirements 
+ • IBM MQ and IBM MQ Explorer. 
+ • The exercise assumes that you defined the queue manager and queues in Exercise 1 and that  you are familiar with the sample programs that were introduced in Exercise 3. 
+ • The exercise requires sample programs amqsput and amqsget. 
+© Copyright IBM Corp. 2017 7-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions 
+Exercise 7. Running an IBM MQ trace 
+In this exercise, you start a trace on the IBM MQ amqsput and amqsget sample programs. You  then use the sample programs to send and receive messages and examine the trace output. 
+Part 1: Start an MQ trace on the sample programs 
+__ 1. Start queue manager QM01 unless it is already running. 
+__ 2. Using a command or MQ Explorer, start an MQ trace on the MQ amqsput and amqsget sample programs. 
+When you use MQ Explorer to start a trace, you do not have the option of selecting specific  components to trace. You can use the strmqtrc command to identify specific components. 
+To use MQ Explorer to start an MQ trace: 
+__ a. In the MQ Explorer - Navigator view, right-click the IBM MQ and then click Trace. The  Trace dialog box is displayed.  
+__ b. Click Start. 
+W Windows 
+To start an MQ trace by using a command, type: 
+ strmqtrc –m QM01 -p amqsput.exe,amqsget.exe 
+L Linux 
+To start an MQ trace by using a command, type: 
+ strmqtrc –m QM01 -p amqsput,amqsget 
+© Copyright IBM Corp. 2017 7-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 7. Running an IBM MQ trace 
+Part 2: Use the sample programs to put and get messages from a queue 
+In this part of the exercise, you run the amqsput and amqsget sample programs, which causes the  generation of trace files. You also get the process ID (PID) of the sample programs so that you can  identify the trace files for each program. 
+__ 1. Start the amqsput sample program. 
+From a command prompt, type: amqsput QL.A QM01 
+Do not put any messages on the queue yet. 
+__ 2. Get the PID of the amqsput sample program. 
+W Windows 
+Get the PID of the amqsput by using the Windows Task Manager: 
+__ a. Right-click the Windows taskbar, and then select Task Manager. 
+__ b. Click the Processes tab. 
+__ c. Click Image Name to sort the processes alphabetically by program name. 
+__ d. If the PID column is not displayed, click View > Select Columns and then click the PID  (Process Identifier) check-box. 
+__ e. Write the amqsput PID here: _______________  
+__ f. Leave the Task Manager running. You use it in Step 4 to get the PID of the amqsget sample program. 
+L Linux 
+Get the PID of the amqsput by using the ps -ef command. 
+__ a. In a second terminal window, enter: ps -ef | grep amqsput | grep QM01 __ b. Write the amqsput PID here: _______________ 
+__ c. Leave this terminal window open. You are going to use it in Step 4 to get the PID of the  amqsget sample program. 
+__ 3. Now enter some test messages and then press Enter on a blank line to exit the sample  amqsput program. 
+__ 4. Use the amqsget sample program to get the messages from the local queue QL.A on queue  manager QM01. 
+The amqsget displays messages in the queue, and then waits 15 seconds to see whether  more messages arrive on the queue. In that 15-second period, identify the amqsget PID. 
+From a command prompt, type: amqsget QL.A QM01 
+© Copyright IBM Corp. 2017 7-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+W Windows 
+Find the PID for amqsget in the Windows Task Manager. L Linux 
+Exercise 7. Running an IBM MQ trace 
+In the second terminal window, enter: ps -ef | grep amqsget | grep QM01 
+__ a. Write the amqsget PID here: _______________  
+__ 5. Stop the MQ trace.  
+If you started the trace by using a command, stop the MQ trace in the command window.  Type: endmqtrc –m QM01 
+If you started the trace in MQ Explorer, stop the MQ trace in MQ Explorer: 
+__ a. In the MQ Explorer - Navigator view, right-click the IBM MQ, and then click Trace. The  Trace dialog box is displayed.  
+__ b. Click Stop. 
+Part 3: Locate and examine the trace files 
+W Windows 
+The default trace directory is C:\ProgramData\IBM\MQ\trace 
+A trace file is created for each process. The trace files are readable without formatting and are  called AMQpppp.0.TRC where pppp is the process identifier (PID) that created the file. 
+__ 1. Go to the directory C:\ProgramData\IBM\MQ\trace 
+__ 2. View the trace output files with Notepad and examine the PUT and GET operations. 
+L Linux 
+Trace files are created in the /var/mqm/trace directory. These files must be formatted before they  can be read. 
+__ 1. Go to the directory. Type: cd /var/mqm/trace 
+__ 2. Format the trace files. Type: dspmqtrc *.TRC 
+The trace formatter program converts binary files that are named AMQppppp.TRC, where  ppppp is the process identifier (PID) that created the file into readable files that are named  AMQppppp.0.FMT.  
+__ 3. Referencing the PIDs that you captured for the amqsput and amqsget sample programs,  find and view the formatted trace files, and examine the PUT and GET operations. 
+© Copyright IBM Corp. 2017 7-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Sample excerpt of a Windows trace file for amqsput: 
+Exercise 7. Running an IBM MQ trace 
+Process : C:\Program Files\IBM\MQ\Tools\c\Samples\Bin64\amqsput.exe (64-bit) Arguments :  
+Host : IBM111-11111 
+Operating System : Windows 7 Professional x64 Edition, Build 7601: SP1 Product Long Name : IBM MQ for Windows (x64 platform) 
+Version : 9.0.0.0 Level : p900-L160512.4 
+O/S Registered : 1  
+Data Path : C:\ProgramData\IBM\MQ 
+Installation Path : C:\Program Files\IBM\MQ 
+Installation Name : Installation1 (1) 
+License Type : Production 
+UTC Date : 2016/10/25: Time : 14:44:12.330 
+LCL Date : 2016/10/25: Time : 10:44:12.330 Eastern Standard Time 
+QueueManager : QM01 
+Counter TimeStamp PID.TID Ident Data 
+============================================================ 
+00000001 10:44:12.317686 7220.1 : !! - Thread stack (from mqe.dll) 00000002 10:44:12.322152 7220.1 : !! - -> MQCONNX 
+00000003 10:44:12.322641 7220.1 : !! - -> trmzstMQCONNX 00000004 10:44:12.322656 7220.1 : !! - -> zstMQCONNX 00000005 10:44:12.322662 7220.1 : !! - -> zstMQConnect 00000006 10:44:12.322667 7220.1 : !! - -> zstInitCS 00000007 10:44:12.325228 7220.1 : !! - -> xcsInitialize 
+© Copyright IBM Corp. 2017 7-6 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Sample excerpt of a Windows trace file for amqsget: 
+Exercise 7. Running an IBM MQ trace 
+Process : C:\Program Files\IBM\MQ\Tools\c\Samples\Bin64\amqsget.exe (64-bit) Arguments :  
+Host : IBM 
+Operating System : Windows 7 Professional x64 Edition, Build 7601: SP1 Product Long Name : IBM MQ for Windows (x64 platform) 
+Version : 9.0.0.0 Level : p900-L160512.4 
+O/S Registered : 1  
+Data Path : C:\ProgramData\IBM\MQ 
+Installation Path : C:\CourseDev\MQV9Install 
+Installation Name : Installation1 (1) 
+License Type : Production 
+UTC Date : 2016/10/25: Time : 14:45:1.580 
+LCL Date : 2016/10/25: Time : 10:45:1.580 Eastern Standard Time 
+QueueManager : QM01 
+Counter TimeStamp PID.TID Ident Data 
+============================================================ 
+000006EF 10:45:01.565102 7200.1 : !! - Thread stack (from mqe.dll) 000006F0 10:45:01.565113 7200.1 : !! - -> MQCONNX 
+000006F1 10:45:01.565119 7200.1 : !! - -> trmzstMQCONNX 000006F2 10:45:01.565124 7200.1 : !! - -> zstMQCONNX 000006F3 10:45:01.565128 7200.1 : !! - -> zstMQConnect 000006F4 10:45:01.565131 7200.1 : !! - -> zstInitCS 000006F5 10:45:01.565136 7200.1 : !! - -> xcsInitialize 
+End of exercise 
+© Copyright IBM Corp. 2017 7-7 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise review and wrap-up 
+Having completed this exercise, you should be able to:  • Set up an IBM MQ trace 
+ • Analyze the output from a trace 
+Exercise 7. Running an IBM MQ trace 
+© Copyright IBM Corp. 2017 7-8 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 8. Controlling access to IBM MQ 
+Exercise 8. Controlling access to IBM  MQ  
+Estimated time 
+01;00 
+Overview 
+In this exercise, you use the IBM MQ OAM commands to set access control on a queue, and then  use the IBM MQ sample programs to see the effect of attempting to breach security. 
+Objectives 
+After completing this exercise, you should be able to: 
+ • Use the setmqaut command to define access control on a queue 
+ • Use the dspmqaut command to display the access control on a queue 
+ • Use IBM MQ Explorer to manage authority records 
+ • Enable and monitor authority events 
+ • Test security by using IBM MQ sample programs 
+Introduction 
+In this exercise you use a non-privileged user ID of “oamlabuser” that is a member or the “oamlab”  group to access MQ objects, experience access failures, examine related diagnostic messages,  and apply the correct rules. You use the MQ Explorer and the setmqaut command to apply OAM  rules. 
+L Linux 
+All authorities are set at the group level by default. In Exercise 1, you created the queue manager  so that you can set authorities at user-level authority by entering the -oa user option on the create queue manager command.  
+In Part 2 of this exercise, you create a generic profile. A generic profile associates with more than  one object of the same type. You can grant authorities to a set of objects at the same time by  creating an authority record against the generic profile.  
+Requirements 
+ • IBM MQ and IBM MQ Explorer 
+© Copyright IBM Corp. 2017 8-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+ • A text editor 
+Exercise 8. Controlling access to IBM MQ 
+ • The queue manager QM01 and queues that are created in Exercise 1 
+ • A user that does not belong to the “mqm” group or the “users” group (on Linux) 
+© Copyright IBM Corp. 2017 8-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions 
+Exercise 8. Controlling access to IBM MQ 
+Some steps in this exercise require that you run MQ sample programs to put, get, and browse  messages as an unauthorized user that is not a member of the mqm group access is required.  Other steps require that you complete steps as the Administrator user. 
+W Windows 
+On the Windows image, the unauthorized user is oamlabuser. This user is assigned to the oamlab group. It is not a member of the mqm or Administrators group. 
+The Administrator user ID is Administrator. 
+L Linux 
+On the Linux image, the unauthorized user is oamlabuser. It is not a member of the mqm group. The Administrator user ID is localuser. 
+Part 1: Authorizing a user 
+In this part of the exercise, you log in as a user oamlabuser (the user that does not have object  authority) and verify that this user cannot access a queue. The unauthorized user receives a 2035  error when an attempt is made to access the queue from a sample application.  
+__ 1. If it is not running, start queue manager QM01. 
+__ 2. Verify that queue QL.A on QM01 is not PUT inhibited. 
+To display the queue properties in MQSC, type: 
+DIS QL(QL.A) 
+To display the queue properties in MQ Explorer, right-click the queue in the Queues view  and then click Properties. 
+__ 3. Enable authority events on your queue manager. This method is one way to monitor  authority violations.  
+__ a. Using MQ Explorer, right-click QM01 in the navigator and click Properties.  __ b. On the Events tab, select Enabled for Authority events. 
+__ c. Click Apply and then click OK. 
+__ 4. Open a new command window and start a session (window) as the unauthorized user. 
+W Windows 
+To start a command window as oamlabuser, enter the following command from a Windows  command prompt:  
+runas /user:oamlabuser cmd 
+© Copyright IBM Corp. 2017 8-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+The password is: passw0rd 
+L Linux 
+Open a new terminal window and set the user to oamlabuser:  su -l oamlabuser  
+The password is: passw0rd123 
+Exercise 8. Controlling access to IBM MQ 
+__ 5. In the unauthorized user (oamlabuser) command window, run the amqsput sample  program to attempt to put a message to queue QL.A on the queue manager QM01. Type: 
+amqsput QL.A QM01 
+You should receive an error message with a reason code 2035  
+(MQRC_NOT_AUTHORIZED) 
+__ 6. Use the amqsevt command to display the queue manager events.  
+In the administrator command window, type: 
+amqsevt -m QM01 -q SYSTEM.ADMIN.QMGR.EVENT 
+The SYSTEM.ADMIN.QMGR.EVENT queue should include a message similar to the  following message: 
+Event Type : Queue Mgr Event [44] 
+Reason: : Not Authorized [2035] 
+Event created : 2016/10/26 09:52_04.54 GMT 
+Queue Mgr Name : QM01 
+Reason Qualifier : Conn Not Authorized 
+User Identifier : oamlabuser 
+Appl Type : Unix 
+Appl Name : amqsput 
+This program continues to run until you either close the window or end the program by  typing Ctrl+C. 
+__ 7. A record of the authority violation is also included in the queue manager errors subdirectory.  
+Locate the error file and open it in a text editor. Scroll to the end of the file to find the most  recent entry. 
+© Copyright IBM Corp. 2017 8-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+W Windows 
+Exercise 8. Controlling access to IBM MQ 
+For Windows queue managers, a security violation message is written to the AMQERR01.LOG file in  the C:\ProgramData\IBM\MQ\qmgrs\QM01\errors directory. 
+L Linux 
+For Linux queue managers, a security violation message is written to the AMQERR01.LOG file in  the/var/mqm/qmgrs/QM01/errors directory. 
+Error message example:  
+10/26/2016 07:14:41 - Process(2920.12) User(MUSR_MQADMIN) Program(amqzlaa0.exe)  Host(WS2008R2X64) Installation(Installation1) 
+ VRMF(9.0.0.0) QMgr(QM01) 
+  
+AMQ8077: Entity 'oamlabuser@ws2012r2x64' has insufficient authority to  access object'QM01'. 
+EXPLANATION:  
+The specified entity is not authorized to access the required object. The  following requested permissions are unauthorized: connect 
+ACTION:  
+Ensure that the correct level of authority has been set for this entity  against the required object, or ensure that the entity is a member of a  privileged group.  
+__ 8. Use MQ Explorer or the setmqaut command in the Administrator command window to add  connection authority for the user oamlabuser to the queue manager QM01.  
+If you use the setmqaut command, use the dspmqaut command to verify that the user has  connect authority.  
+To use the setmqaut command to add connection authority for the user oamlabuser,  type: 
+setmqaut -m QM01 –t qmgr -p oamlabuser +connect 
+To use the dspmqaut command to verify that the user has connect authority, type: dspmqaut -m QM01 –t qmgr -p oamlabuser  
+To use MQ Explorer to add connection authority for the user oamlabuser: 
+__ a. Right-click the queue manager QM01 in the MQ Explorer - Navigator view and then  click Object Authorities > Manage Queue Manager Authority Records.  
+__ b. On the Users tab, click New. Set the Entity name to: oamlabuser 
+__ c. Select Connect under the MQI section. Click OK. 
+© Copyright IBM Corp. 2017 8-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+__ d. Click OK on the confirmation window. 
+Exercise 8. Controlling access to IBM MQ 
+__ e. Verify that the user has Connect authority, and then click Close. 
+
+__ 9. As the Administrator, give the user oamlabuser general API access (put, get, browse,  inquire, and set) to QL.A on your queue manager.  
+To use the setmqaut command, type: 
+setmqaut -m QM01 -t q -n QL.A -p oamlabuser +put +get +browse +inq +set To use MQ Explorer: 
+__ a. Right-click the Queues folder under QM01 in the MQ Explorer - Navigator view and  then click Object Authorities > Manage Authority Records.  
+__ b. Expand Specific Profiles. Select QL.A. 
+__ c. On the Users tab, click New and then type oamlabuser as the Entity Name. __ d. Select Browse, Get, Inquire, Put, and Set authority under the MQI section. Click OK. __ e. Click OK on the confirmation window. 
+__ f. Verity that the user has Browse, Get, Inquire, Put, and Set authorities, and then click  Close. 
+__ 10. In the command window that is running as oamlabuser, put a message on QL.A. This user  should now be able to put messages to QL.A.  
+Type: amqsput QL.A QM01 
+__ 11. In the command window that is running as oamlabuser, use the amqsbcg sample program  on QL.A to browse the queue and verify that the access is now allowed.  
+© Copyright IBM Corp. 2017 8-6 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Type: amqsbcg QL.A QM01 
+Exercise 8. Controlling access to IBM MQ 
+Part 2: Using generic profiles 
+In this part of the exercise, you create a generic profile to grant authorities to a set of objects at the  same time by creating an authority record against the generic profile.  
+__ 1. As Administrator, use the setmqaut command to remove the specific profile that allows  user oamlabuser to access QL.A.  
+Type: setmqaut -m QM01 -t q -n QL.A -p oamlabuser -remove 
+__ 2. As Administrator, create a new generic profile that is called QL.*.TEST that allows the  user oamlabuser to access (browse, put, get, set, and inquire) queues that match the  generic queue name (-n).  
+Type: setmqaut -m QM01 -t q -n QL.*.TEST -p oamlabuser +allmqi 
+__ 3. As Administrator, define a queue on QM01 that is named QL.A.TEST. Type:  
+runmqsc QM01  
+DEFINE QL(QL.A.TEST) 
+END 
+__ 4. As oamlabuser, try to access QL.A. You should get the 2035 error.  
+Type: amqsput QL.A QM01  
+__ 5. As oamlabuser, try to put a message to QL.A.TEST.  
+Type: amqsput QL.A.TEST QM01 
+This user should be able to put a message to QL.A.TEST because it matches the generic  queue name of QL*.TEST. 
+__ 6. As the Administrator, use MQ Explorer or the dmpmqaut command to inspect the profiles  that apply to QL.A.TEST queue. 
+To use MQ Explorer to inspect the profiles that apply to QL.A.TEST, complete the following  steps: 
+__ a. Right-click the queue QL.A.TEST in the Queues content view and then click Object  Authorities > Find Accumulated Authorities. 
+__ b. Click User for the Entity Type and then type oamlabuser for the Entity name. __ c. Click Refresh. 
+© Copyright IBM Corp. 2017 8-7 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 8. Controlling access to IBM MQ 
+To use to the dmpmqaut command to inspect the profiles that apply to QL.A.TEST, type:  
+dmpmqaut -m QM01 -t q -p oamlabuser -n QL.A.TEST 
+It returns a summary of the profile. For example, 
+profile: QL.*.TEST 
+object type: queue 
+entity: oamlabuser@WS2012R2X64(QL.*.TEST) 
+entity type: principal 
+authority: allmqi 
+__ 7. Close the command window that is running as the user oamlabuser. 
+Exercise cleanup 
+__ 1. Disable authority events on the queue manager QM01.  
+__ a. Using MQ Explorer, right-click QM01 in the navigator and click Properties.  __ b. On the Events tab, select Disabled for Authority events. 
+__ c. Click Apply and then click OK. 
+End of exercise 
+© Copyright IBM Corp. 2017 8-8 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise review and wrap-up 
+Exercise 8. Controlling access to IBM MQ 
+In the lab environment, you ran as an unauthorized user and enabled authorization to the queue  manager and queues. 
+Having completed this exercise, you should be able to: 
+ • Use the setmqaut command or MQ Explorer to create authority records for a queue  • Use the dspmqaut or MQ Explorer to display the authority records for a queue  • Use IBM MQ utilities and sample programs to test security  
+© Copyright IBM Corp. 2017 8-9 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 9. Using a media image to restore a queue 
+Exercise 9. Using a media image to  restore a queue 
+Estimated time 
+00:30 
+Overview 
+In this exercise, you capture a media image of a queue, deliberately damage the queue, and then  restore it. 
+Objectives 
+After completing this exercise, you should be able to: 
+ • Capture an object media image 
+ • Re-create an IBM MQ object from an object media image 
+Introduction 
+This exercise demonstrates the survival of persistent messages across a queue manager restart. It  also demonstrates how a damaged queue can be recovered from its media image. 
+In this exercise, you create a queue manager with a linear log. To demonstrate media recovery, you  then damage a queue. The act of deliberately damaging a queue should not be done in practice. It  is done in this exercise to simulate a disk failure. 
+You can use the amqsbcg sample program or MQ Explorer to browse queues. 
+Requirements 
+ • IBM MQ and MQ Explorer is installed on the local system 
+© Copyright IBM Corp. 2017 9-1 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise instructions  
+Part 1: Queue manager restart  
+Exercise 9. Using a media image to restore a queue 
+In this part of the exercise, you create a queue manager that uses linear logging. This part of the  exercise also demonstrates the survival of persistent messages across a queue manager restart.  
+__ 1. To avoid any conflicts or problems, use MQ Explorer or the endmqm command to stop all  running queue managers. 
+To use the endmqm command, type:  
+endmqm -i QM01  
+endmqm -i QMR01 
+__ 2. Create a queue manager that is named QML01 that uses linear logging, runs on port 1417,  and uses the SYSTEM.DEAD.LETTER.QUEUE for its dead-letter queue.  
+Type: crtmqm -ll -p 1417 -u SYSTEM.DEAD.LETTER.QUEUE QML01 
+__ 3. Start the queue manager.  
+Type: strmqm QML01 
+__ 4. Use a text editor to create an MQSC command file that is named recover.mqsc that  defines the following objects. 
+__ a. Define two local queues that are named QL.A and QL.B. Set the default persistence of  each queue to YES (persistent).  
+In the command file, type: 
+DEF QL(QL.A) DEFPSIST(YES) REPLACE 
+DEF QL(QL.B) DEFPSIST(YES) REPLACE 
+__ b. Define two alias queues that are named QA.A and QA.B.  
+Define QA.A so that it resolves to the local queue QL.A.  
+Define QA.B so that it resolves to the local queue QL.B.  
+Set the default persistence of each alias queue to NO (not persistent).  
+In the command file, type:  
+DEF QA(QA.A) TARGET(QL.A) DEFPSIST(NO) REPLACE 
+DEF QA(QA.B) TARGET(QL.B) DEFPSIST(NO) REPLACE 
+__ 5. Use MQSC to process the command file and redirect the output to a report file.  
+Make sure that you specify the queue manager name QML01 in the runmqsc command.  Also, if the current directory does not contain the recover.mqsc file, you must specify the  path for the recover.mqsc file. 
+Type: runmqsc QML01 < recover.mqsc > recoverreport.txt 
+Review the report file to verify that all commands in the file ran successfully. 
+__ 6. Use the amqsput sample program to put persistent and non-persistent messages on the  local queues QL.A and QL.B and alias queues QA.A and QA.B.  
+© Copyright IBM Corp. 2017 9-2 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Exercise 9. Using a media image to restore a queue 
+When the amqsput sample program starts, the value of the DefPersistence attribute of the  queue determines whether the message that is put on the queue is persistent or  non-persistent. Because of the queue definitions that you made in step 4, the amqsput sample program puts persistent messages on the local queues and non-persistent  messages on the alias queues. 
+Type: 
+amqsput QL.A QML01 
+amqsput QA.A QML01 
+amqsput QL.B QML01 
+amqsput QA.B QML01 
+__ 7. Use the MQ Explorer or the sample program amqsbcg to browse the messages on the local  queue QL.A and QL.B and verify that it contains a mixture of persistent and non-persistent  messages.  
+To use the sample program, type: amqsbcg QL.A QML01  
+The sample program returns a record for each message that is on the queue.   - If the message is persistent, the Persistence attribute is 1.  
+ - If the message is not persistent, the Persistence attribute is 0. 
+To use MQ Explorer, right-click the queue in the Queues content view and then click  Browse Messages. A row exists for each message on the queue. Scroll to the right until  you see the Persistence column and verify that the queue contains both persistent and  non-persistent messages. 
+__ 8. Stop and then restart the queue manager QML01.  
+Type: 
+endmqm -i QML01  
+strmqm QML01 
+__ 9. Use MQ Explorer or the sample program amqsbcg to browse the messages on QL.A and  QL.B again. Verify that only the persistent messages on the local queue survived the restart.  
+Part 2: Media recovery 
+__ 1. Run the rcdmqimg command against the queue QL.B to write an image of the queue to the  log for use in media recovery.  
+Type: rcdmqimg -m QML01 -t ql QL.B 
+__ 2. Locate the file that implements local queue QL.B within the file system and then damage the  queue by deleting the file. The file location is specific to the operating system. 
+© Copyright IBM Corp. 2017 9-3 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+L Linux 
+rm /var/mqm/qmgrs/QML01/queues/QL\!B W Windows 
+Exercise 9. Using a media image to restore a queue 
+erase "C:\ProgramData\IBM\MQ\qmgrs\QML01\queues\QL!B" 
+/q 
+__ 3. Use the DISPLAY QUEUE command in runmqsc to display the attributes of local queue QL.B.  This command still works because it does not yet recognize that the queue is damaged.  
+Type:  
+runmqsc QML01  
+DIS Q(QL.B)  
+END 
+__ 4. Use amqsput to put some messages to local queue QL.B. It might take 10 or more  messages (because of buffering) but the queue manager eventually detects that the queue  is damaged and reports the damage by returning MQRC 2101  
+(MQRC_OBJECT_DAMAGED).  
+Type: amqsput QL.B QML01 
+__ 5. Use the DISPLAY QUEUE command in runmqsc to display the attributes of local queue QL.B.  
+Type: 
+runmqsc QML01  
+DIS Q(QL.B)  
+end 
+The queue manager now recognizes that a queue is damaged and reports that the MQ  object QL.B is not found. 
+__ 6. Use the re-create object (rcrmqobj) command to recover local queue QL.B from its media  image.  
+Type: rcrmqobj -m QML01 -t ql QL.B 
+You should see a message that indicates that the local queue QL.B was re-created. __ 7. In runmqsc, check that you can now display the attributes of the queue. Type: 
+runmqsc QML01  
+DIS Q(QL.B) 
+end 
+__ 8. Use MQ Explorer or the amqsbcg sample program to browse the local queue QL.B to check  whether the messages are recovered successfully.  
+To use the sample program to browse the queue, type: amqsbcg QL.B QML01 
+To browse the messages by using MQ Explorer, right-click the QL.B queue in the Queues content view and then click Browse Messages. 
+© Copyright IBM Corp. 2017 9-4 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
+V11.0 
+EXempty 
+Were the non-persistent messages recovered? 
+Exercise 9. Using a media image to restore a queue 
+Exercise cleanup 
+__ 1. Clear the messages from QL.A and QL.B by using a sample program or MQ Explorer.  To clear the messages by using a sample program, type: amqsget QL.B QML01 
+To clear the messages by using MQ Explorer, right-click the queue in the Queues content  view, click Clear Messages, and then click Clear. 
+__ 2. Stop and then delete the queue manager QML01. It might take 1 or 2 minutes for the queue  manager to be deleted. 
+Type:  
+endmqm -i QML01  
+dltmqm QML01 
+End of exercise 
+© Copyright IBM Corp. 2017 9-5 Course materials may not be reproduced in whole or in part without the prior written permission of IBM. 
+Individually Licensed to Dawid Trojanowski
