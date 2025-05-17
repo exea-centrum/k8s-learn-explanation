@@ -1,5 +1,12 @@
 david@lmde:/tmp/refarch-integration-inventory-dal$ docker ps
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+docker pull icr.io/ibm-messaging/mq:latest
+
+docker images
+docker volume create qm1data
+
+
+
 david@lmde:/tmp/refarch-integration-inventory-dal$ docker run --env LICENSE=accept --env MQ_QMGR_NAME=QM1 --volume qm1data:/mnt/mqm --publish 1414:1414 --publish 9443:9443 --detach --env MQ_APP_USER=app --env MQ_APP_PASSWORD=passw0rd --env MQ_ADMIN_USER=admin --env MQ_ADMIN_PASSWORD=passw0rd --name QM1 icr.io/ibm-messaging/mq:latest
 Unable to find image 'icr.io/ibm-messaging/mq:latest' locally
 latest: Pulling from ibm-messaging/mq
@@ -26,8 +33,7 @@ b1db826d57a2: Pull complete
 Digest: sha256:4a0f207897b650841a566b6acd7e5701dc8a0e11e617be1963dcc33619d2442c
 Status: Downloaded newer image for icr.io/ibm-messaging/mq:latest
 e4b57e2369085db6491c7620ac0c4194727e2e0e82a515df78b83a003d58081b
-david@lmde:/tmp/refarch-integration-inventory-dal$ dockerexec -ti QM1 bash
-dockerexec: nie znaleziono polecenia
+
 david@lmde:/tmp/refarch-integration-inventory-dal$ docker exec -ti QM1 bash
 bash-5.1$ dspmqver
 Name:        IBM MQ
