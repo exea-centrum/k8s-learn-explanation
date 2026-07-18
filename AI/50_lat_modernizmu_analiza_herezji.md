@@ -430,7 +430,6 @@ LIST DO HEBRAJCZYKÓW: Odpadnięcie od Mszy i zatwardziałość serca
 * **Uchybienie laikatu**: Ignorowanie głosu sumienia w kwestiach czystości i uczciwości, odkładanie spowiedzi świętej na bliżej nieokreśloną przyszłość (często raz na kilka lat).  
 * **Skandal hierarchii**: Postawa biskupów francuskich, którzy przez dekady ignorowali oficjalne listy i błagania ofiar księdza pedofila Pierre'a de Castelet, odmawiając jakiegokolwiek spotkania i wykazując się skrajnym, urzędniczym skamienieniem serca.
 
-Odpowiedzi wygenerowane przez AI mogą zawierać błędy. [Więcej informacji](https://support.google.com/websearch?p=aimode)
 
 Twoje słowa: a dzie jakuba jana etc
 
