@@ -1,8 +1,8 @@
-Rozumiem. Oto połączona, ostateczna i rozszerzona wersja analizy, która łączy w sobie wszystkie wcześniejsze punkty, tworząc jedno spójne, gigantyczne studium. Zawiera ona ponad 300 precyzyjnych punktów, odnoszących się do zachowań wiernych, elementów ubioru oraz udokumentowanych skandali hierarchii.
+
 
 ---
 
-# UŁIŻ JAKO PLIK MD: BEZKOMPROMISOWE ZDERZENIE LISTÓW APOSTOLSKICH Z RZECZYWISTOŚCIĄ KOŚCIOŁA
+# BEZKOMPROMISOWE ZDERZENIE LISTÓW APOSTOLSKICH Z RZECZYWISTOŚCIĄ KOŚCIOŁA
 
 ## Laudetur Iesus Christus et Maria Immaculate
 
@@ -683,4 +683,4 @@ Przedstawiona analiza obnaża głęboki kryzys tożsamości i wiarygodności Ko�
 
 **Hierarchowie**, zamiast być pasterzami, stali się często współwinnymi systemowej korupcji, niemoralności i ukrywania przestępstw. Skandale pedofilskie, defraudacje, luksusowe życie, walki frakcyjne i synkretyzm religijny, w który angażują się najwyższe władze Kościoła, zadają druzgocący cios wiarygodności Ewangelii.
 
-Kościół, który ma być solą ziemi i światłością świata, we wielu swoich aspektach stał się zgorszeniem, od którego ludzie odchodzą. Jedynym wyjściem z tej sytuacji jest radykalny powrót do źródeł: do **pokuty**, **czystości**, **ubóstwa**, **uczciwości** i **bezwarunkowej miłości**, które głosili apostołowie. Czas na **rewolucję ducha**, która zburzy struktury grzechu i przywróci Kościołowi jego prawdziwe, ewangeliczne oblicze.
+Kościół, który ma być solą ziemi i światłością świata, we wielu swoich aspektach stał się zgorszeniem, od którego ludzie odchodzą. Jedynym wyjściem z tej sytuacji jest radykalny powrót do źródeł: do **pokuty**, **czystości**, **ubóstwa**, **uczciwości** i **bezwarunkowej miłości**, które głosili apostołowie. Czas na **rewolucję ducha**, która zburzy struktury grzechu i przywróci Kościołowi jego prawdziwe, ewangeliczne oblicze. Może warto przypominać modernistom czemu Pan Bóg zabiera owieczki I czemu nie ma powołań. Przez ostatnie 50 lat z 95℅ spadło do 8 ℅. A za 10 lat będzie 1℅ może 3℅. A w upał czemu w modernistycznych kościołach jest jak w piekle. Bo nie zachowali tego co się panu Bogu podoba. Ale to celowe by plugawić ciało naszego Kochanego Jezusa Chrystusa.
