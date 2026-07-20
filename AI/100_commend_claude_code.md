@@ -1,4 +1,4 @@
----
+
 
 ## 🧠 Zarządzanie pamięcią i kontekstem
 * `/clear` – Czyści dotychczasowy kontekst i resetuje pamięć wątku.
